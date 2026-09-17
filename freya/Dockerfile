@@ -1,10 +1,11 @@
 ARG BUILD_FROM=node:22-bookworm-slim
 FROM ${BUILD_FROM}
 
-WORKDIR /config/freya
+WORKDIR /app
 
 ENV NODE_ENV=production \
-    FREYA_HOME=/config/freya
+    FREYA_HOME=/config/freya \
+    FREYA_WORKSPACE=/app
 
 RUN npm install -g @eoasmxd/freya@latest --no-audit --no-fund
 
