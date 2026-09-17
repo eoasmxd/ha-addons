@@ -1,0 +1,20 @@
+name: "Freya"
+description: "基于微内核架构的轻量级智能体系统"
+url: "https://github.com/eoasmxd/freya"
+image: "ghcr.io/eoasmxd/freya-ha-addon-{arch}"
+version: "0.4.4"
+slug: "freya"
+init: false
+arch:
+  - aarch64
+  - amd64
+startup: services
+boot: auto
+
+ingress: true
+ingress_port: 3000
+panel_icon: "mdi:head-snowflake-outline"
+panel_title: "Freya"
+
+map:
+  - config:rw

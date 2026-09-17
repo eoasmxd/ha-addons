@@ -1,0 +1,39 @@
+name: Publish Freya Add-on
+
+on:
+  push:
+    tags:
+      - 'v*'
+    paths:
+      - 'freya/**'
+  workflow_dispatch:
+
+jobs:
+  publish-freya:
+    name: Build & Publish Freya
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: 检出仓库代码
+        uses: actions/checkout@v4
+
+      - name: 配置 QEMU 跨平台仿真环境
+        uses: docker/setup-qemu-action@v3
+
+      - name: 登录 GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 使用 HA 官方 Builder 自动构建并发布镜像
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --amd64 \
+            --aarch64 \
+            --target freya \
+            --image "freya-ha-addon-{arch}"
