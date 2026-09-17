@@ -2,7 +2,7 @@ name: "Freya"
 description: "基于微内核架构的轻量级智能体系统"
 url: "https://github.com/eoasmxd/freya"
 image: "ghcr.io/eoasmxd/freya-ha-addon-{arch}"
-version: "0.4.4"
+version: "0.5.0"
 slug: "freya"
 init: false
 arch:
