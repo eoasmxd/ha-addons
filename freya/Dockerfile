@@ -5,9 +5,9 @@ WORKDIR /app
 
 ENV NODE_ENV=production \
     FREYA_HOME=/config/freya \
-    FREYA_WORKSPACE=/app
+    FREYA_LAUNCH=/app
 
-RUN npm install -g @eoasmxd/freya@latest --no-audit --no-fund
+RUN npm install -g @eoasmxd/freya@0.5.2 --no-audit --no-fund
 
 EXPOSE 3000
 
