@@ -121,7 +121,12 @@ export class HomeAssistantClient {
             return;
           }
 
-          if (data.type === 'result' && data.success) {
+          if (data.type === 'result') {
+            if (!data.success) {
+              finish(new Error(`获取暴露实体列表失败: ${data.error?.message || '未知错误'}`));
+              return;
+            }
+
             const exposed = new Set<string>();
             const rawResult = data.result?.exposed_entities || data.result || {};
 
@@ -165,7 +170,8 @@ export class HomeAssistantClient {
       headers: {
         Authorization: `Bearer ${this.config.token}`,
         'Content-Type': 'application/json'
-      }
+      },
+      signal: AbortSignal.timeout(10_000)
     });
 
     if (!response.ok) {
@@ -183,7 +189,8 @@ export class HomeAssistantClient {
       headers: {
         Authorization: `Bearer ${this.config.token}`,
         'Content-Type': 'application/json'
-      }
+      },
+      signal: AbortSignal.timeout(10_000)
     });
 
     if (!response.ok) {
@@ -202,7 +209,8 @@ export class HomeAssistantClient {
         Authorization: `Bearer ${this.config.token}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(serviceData)
+      body: JSON.stringify(serviceData),
+      signal: AbortSignal.timeout(10_000)
     });
 
     if (!response.ok) {
@@ -220,7 +228,8 @@ export class HomeAssistantClient {
       headers: {
         Authorization: `Bearer ${this.config.token}`,
         'Content-Type': 'application/json'
-      }
+      },
+      signal: AbortSignal.timeout(10_000)
     });
 
     if (!response.ok) {

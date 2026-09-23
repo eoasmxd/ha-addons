@@ -71,13 +71,50 @@ export class HomeAssistantSecurityGateway {
     }
   }
 
-  assertCanCallService(entityId: string | undefined, exposedSet: Set<string>): void {
+  private static readonly BLOCKED_DOMAINS = new Set(['homeassistant', 'hassio', 'shell_command', 'command_line']);
+
+  assertCanCallService(
+    domain: string,
+    service: string,
+    entityId: string | undefined,
+    serviceData: Record<string, any>,
+    exposedSet: Set<string>
+  ): void {
     if (!this.isControlAllowed()) {
       throw new Error('当前处于只读模式，禁止执行控制指令。');
     }
 
+    if (HomeAssistantSecurityGateway.BLOCKED_DOMAINS.has(domain.toLowerCase())) {
+      throw new Error(`安全策略禁止调用系统服务 "${domain}.${service}"。`);
+    }
+
+    const forbiddenKeys = ['area_id', 'device_id', 'floor_id', 'label_id'];
+    for (const key of forbiddenKeys) {
+      if (key in serviceData || (serviceData.target && typeof serviceData.target === 'object' && key in serviceData.target)) {
+        throw new Error(`安全策略限制：仅支持针对已暴露的具体实体控制，不支持按 ${key} 批量控制。`);
+      }
+    }
+
+    const targetEntities = new Set<string>();
     if (entityId) {
-      this.assertEntityExposed(entityId, exposedSet);
+      targetEntities.add(entityId);
+    }
+
+    const dataEntityId = serviceData.entity_id || serviceData.target?.entity_id;
+    if (dataEntityId) {
+      if (Array.isArray(dataEntityId)) {
+        dataEntityId.forEach((id) => targetEntities.add(String(id).trim()));
+      } else {
+        targetEntities.add(String(dataEntityId).trim());
+      }
+    }
+
+    if (targetEntities.size === 0) {
+      throw new Error('安全策略限制：调用服务必须明确指定具体的目标 entity_id。');
+    }
+
+    for (const id of targetEntities) {
+      this.assertEntityExposed(id, exposedSet);
     }
   }
 }

@@ -144,14 +144,14 @@ export class HomeAssistantCallServiceTool implements FreyaTool {
           },
           entity_id: {
             type: 'string',
-            description: '目标实体 ID，例如 "light.living_room"。'
+            description: '目标实体唯一标识 ID，例如 "light.living_room"。'
           },
           service_data: {
             type: 'object',
             description: '可选的服务附加参数，例如亮度、颜色、目标温度等。'
           }
         },
-        required: ['domain', 'service']
+        required: ['domain', 'service', 'entity_id']
       }
     };
   }
@@ -163,7 +163,7 @@ export class HomeAssistantCallServiceTool implements FreyaTool {
     const extraData = (args.service_data && typeof args.service_data === 'object') ? args.service_data : {};
 
     const exposedSet = await this.client.getExposedEntities();
-    this.security.assertCanCallService(entityId, exposedSet);
+    this.security.assertCanCallService(domain, service, entityId, extraData, exposedSet);
 
     const payload: Record<string, any> = { ...extraData };
     if (entityId) {
