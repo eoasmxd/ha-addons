@@ -11,3 +11,11 @@ Thumbs.db
 # 本地临时测试缓存
 tmp/
 scratch/
+
+# Node.js 依赖与构建输出
+node_modules/
+dist/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*

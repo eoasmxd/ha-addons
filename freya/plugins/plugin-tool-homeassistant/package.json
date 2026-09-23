@@ -1,0 +1,27 @@
+{
+  "name": "@eoasmxd/freya-plugin-tool-homeassistant",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Freya Home Assistant 交互工具集插件",
+  "freya": {
+    "displayName": "Home Assistant 智能交互工具集",
+    "defaultEnabled": true,
+    "prompts": [
+      "plugin.prompt.homeassistant.md"
+    ]
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@eoasmxd/freya-sdk": "^0.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}
