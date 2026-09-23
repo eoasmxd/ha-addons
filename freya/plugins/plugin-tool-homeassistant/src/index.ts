@@ -25,7 +25,6 @@ export default class HomeAssistantPlugin implements ToolPlugin {
 
   async stop(ctx: FreyaContext): Promise<void> {
     this.client.stopBackgroundSync();
-    this.security.stopWatching();
   }
 
   getId(): string {
