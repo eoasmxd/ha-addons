@@ -20,8 +20,10 @@ ENV NODE_ENV=production \
 
 RUN npm install -g @eoasmxd/freya@0.5.2 --no-audit --no-fund
 
-# 注入专属插件至宿主插件目录
-COPY --from=builder /build/plugin-tool-homeassistant /app/plugins/plugin-tool-homeassistant
+# 注入专属插件至宿主插件目录（仅保留运行时所需元数据、提示词模板及编译产物）
+COPY --from=builder /build/plugin-tool-homeassistant/package.json /app/plugins/plugin-tool-homeassistant/
+COPY --from=builder /build/plugin-tool-homeassistant/dist /app/plugins/plugin-tool-homeassistant/dist
+COPY --from=builder /build/plugin-tool-homeassistant/config /app/plugins/plugin-tool-homeassistant/config
 
 EXPOSE 3000
 
