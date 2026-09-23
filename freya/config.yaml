@@ -2,7 +2,7 @@ name: "Freya"
 description: "基于微内核架构的轻量级智能体系统"
 url: "https://github.com/eoasmxd/freya"
 image: "ghcr.io/eoasmxd/freya-ha-addon-{arch}"
-version: "0.5.2"
+version: "0.5.3"
 slug: "freya"
 init: false
 arch:
@@ -18,3 +18,10 @@ panel_title: "Freya"
 
 map:
   - config:rw
+
+homeassistant_api: true
+
+options:
+  allow_control: false
+schema:
+  allow_control: bool
