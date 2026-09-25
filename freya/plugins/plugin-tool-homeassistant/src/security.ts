@@ -1,6 +1,9 @@
 import type { FreyaContext } from '@eoasmxd/freya-sdk';
 
-/** Home Assistant 实体访问控制与权限安全网关 */
+/**
+ * Home Assistant 实体访问控制与权限安全网关
+ * Home Assistant entity access control and permission security gateway
+ */
 export class HomeAssistantSecurityGateway {
   private ctx?: FreyaContext;
 

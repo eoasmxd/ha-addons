@@ -8,7 +8,10 @@ import {
   HomeAssistantListServicesTool
 } from './tools.js';
 
-/** Home Assistant 智能家居交互工具箱插件 */
+/**
+ * Home Assistant 智能家居交互工具箱插件
+ * Home Assistant smart home interaction toolbox plugin
+ */
 export default class HomeAssistantPlugin implements ToolPlugin {
   type = 'tool' as const;
 

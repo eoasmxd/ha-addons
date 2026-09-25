@@ -2,7 +2,10 @@ import type { FreyaContext, FreyaTool, ToolDefinition } from '@eoasmxd/freya-sdk
 import type { HomeAssistantClient } from './client.js';
 import type { HomeAssistantSecurityGateway } from './security.js';
 
-/** Home Assistant 实体列表查询工具 */
+/**
+ * Home Assistant 实体列表查询工具
+ * Home Assistant entity list query tool
+ */
 export class HomeAssistantListEntitiesTool implements FreyaTool {
   constructor(
     private readonly client: HomeAssistantClient,
@@ -72,7 +75,10 @@ export class HomeAssistantListEntitiesTool implements FreyaTool {
   }
 }
 
-/** Home Assistant 单实体状态查询工具 */
+/**
+ * Home Assistant 单实体状态查询工具
+ * Home Assistant single entity state query tool
+ */
 export class HomeAssistantGetStateTool implements FreyaTool {
   constructor(
     private readonly client: HomeAssistantClient,
@@ -120,7 +126,10 @@ export class HomeAssistantGetStateTool implements FreyaTool {
   }
 }
 
-/** Home Assistant 设备控制服务调用工具 */
+/**
+ * Home Assistant 设备控制服务调用工具
+ * Home Assistant device control service call tool
+ */
 export class HomeAssistantCallServiceTool implements FreyaTool {
   constructor(
     private readonly client: HomeAssistantClient,
@@ -176,7 +185,10 @@ export class HomeAssistantCallServiceTool implements FreyaTool {
   }
 }
 
-/** Home Assistant 可用服务定义与参数查询工具 */
+/**
+ * Home Assistant 可用服务定义与参数查询工具
+ * Home Assistant available service definition and parameter query tool
+ */
 export class HomeAssistantListServicesTool implements FreyaTool {
   constructor(private readonly client: HomeAssistantClient) { }
 

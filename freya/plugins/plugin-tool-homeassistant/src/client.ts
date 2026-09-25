@@ -1,6 +1,9 @@
 import type { HAEntityState, HAServiceDomain, HomeAssistantClientConfig } from './types.js';
 
-/** Home Assistant REST 与 WebSocket 通信客户端 */
+/**
+ * Home Assistant REST 与 WebSocket 通信客户端
+ * Home Assistant REST and WebSocket communication client
+ */
 export class HomeAssistantClient {
   private readonly config: HomeAssistantClientConfig;
   private readonly cacheTtlMs: number;
