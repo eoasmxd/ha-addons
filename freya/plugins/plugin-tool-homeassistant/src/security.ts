@@ -18,7 +18,8 @@ export class HomeAssistantSecurityGateway {
 
   assertEntityExposed(entityId: string, exposedSet: Set<string>): void {
     if (!exposedSet.has(entityId)) {
-      throw new Error(`实体 "${entityId}" 不存在或不可访问。`);
+      // 实体未暴露或不存在
+      throw new Error(`Entity "${entityId}" does not exist or is not accessible.`);
     }
   }
 
@@ -32,17 +33,20 @@ export class HomeAssistantSecurityGateway {
     exposedSet: Set<string>
   ): void {
     if (!this.isControlAllowed()) {
-      throw new Error('当前处于只读模式，禁止执行控制指令。');
+      // 只读模式拦截
+      throw new Error('Currently in read-only mode, control commands are forbidden.');
     }
 
     if (HomeAssistantSecurityGateway.BLOCKED_DOMAINS.has(domain.toLowerCase())) {
-      throw new Error(`安全策略禁止调用系统服务 "${domain}.${service}"。`);
+      // 系统服务调用拦截
+      throw new Error(`Security policy forbids calling system service "${domain}.${service}".`);
     }
 
     const forbiddenKeys = ['area_id', 'device_id', 'floor_id', 'label_id'];
     for (const key of forbiddenKeys) {
       if (key in serviceData || (serviceData.target && typeof serviceData.target === 'object' && key in serviceData.target)) {
-        throw new Error(`安全策略限制：仅支持针对已暴露的具体实体控制，不支持按 ${key} 批量控制。`);
+        // 批量控制拦截
+        throw new Error(`Security policy restriction: Only specific exposed entities are supported, batch control by ${key} is forbidden.`);
       }
     }
 
@@ -61,7 +65,8 @@ export class HomeAssistantSecurityGateway {
     }
 
     if (targetEntities.size === 0) {
-      throw new Error('安全策略限制：调用服务必须明确指定具体的目标 entity_id。');
+      // 缺少目标实体提示
+      throw new Error('Security policy restriction: Calling a service must explicitly specify target entity_id.');
     }
 
     for (const id of targetEntities) {

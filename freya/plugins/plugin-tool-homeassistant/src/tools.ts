@@ -15,17 +15,20 @@ export class HomeAssistantListEntitiesTool implements FreyaTool {
   getDefinition(): ToolDefinition {
     return {
       name: 'homeassistant_list_entities',
-      description: '列出 Home Assistant 中的设备与实体列表（支持按域或关键词筛选）。',
+      // 列出实体工具描述
+      description: 'List devices and entities in Home Assistant (supports filtering by domain or keyword).',
       parameters: {
         type: 'object',
         properties: {
           domain: {
             type: 'string',
-            description: '可选的实体域筛选，例如 "sensor"、"binary_sensor"、"light"、"switch"、"climate" 等。'
+            // 实体域名筛选参数
+            description: 'Optional entity domain filter, e.g. "sensor", "binary_sensor", "light", "switch", "climate", etc.'
           },
           keyword: {
             type: 'string',
-            description: '可选的关键词，匹配实体 ID 或友好名称（Friendly Name）。'
+            // 实体关键词匹配参数
+            description: 'Optional keyword to match entity ID or friendly name.'
           }
         }
       }
@@ -35,7 +38,8 @@ export class HomeAssistantListEntitiesTool implements FreyaTool {
   async execute(args: Record<string, any>, ctx: FreyaContext): Promise<string> {
     const exposedSet = await this.client.getExposedEntities();
     if (exposedSet.size === 0) {
-      return '当前未检索到可用实体。';
+      // 未检索到可用实体出参
+      return 'No accessible entities currently found.';
     }
 
     const allStates = await this.client.getStates();
@@ -62,7 +66,8 @@ export class HomeAssistantListEntitiesTool implements FreyaTool {
     });
 
     if (matched.length === 0) {
-      return '未找到符合条件的实体。';
+      // 未找到匹配实体
+      return 'No matching entities found.';
     }
 
     const lines = matched.map((item) => {
@@ -71,7 +76,8 @@ export class HomeAssistantListEntitiesTool implements FreyaTool {
       return `- ${item.entity_id} (${name}): ${item.state}${unit}`;
     });
 
-    return `已找到 ${matched.length} 个实体：\n${lines.join('\n')}`;
+    // 匹配实体结果列表出参
+    return `Found ${matched.length} entities:\n${lines.join('\n')}`;
   }
 }
 
@@ -88,13 +94,15 @@ export class HomeAssistantGetStateTool implements FreyaTool {
   getDefinition(): ToolDefinition {
     return {
       name: 'homeassistant_get_state',
-      description: '获取 Home Assistant 中指定实体的实时状态及详细属性。',
+      // 单实体状态查询描述
+      description: 'Get real-time state and detailed attributes for a specified entity in Home Assistant.',
       parameters: {
         type: 'object',
         properties: {
           entity_id: {
             type: 'string',
-            description: '实体唯一标识 ID，例如 "sensor.living_room_temperature" 或 "light.kitchen_light"。'
+            // 目标实体 ID 参数
+            description: 'Unique entity ID, e.g. "sensor.living_room_temperature" or "light.kitchen_light".'
           }
         },
         required: ['entity_id']
@@ -105,7 +113,8 @@ export class HomeAssistantGetStateTool implements FreyaTool {
   async execute(args: Record<string, any>, ctx: FreyaContext): Promise<string> {
     const entityId = String(args.entity_id || '').trim();
     if (!entityId) {
-      return '错误: 必须指定 entity_id。';
+      // 缺少实体 ID 出参
+      return 'Error: entity_id is required.';
     }
 
     const exposedSet = await this.client.getExposedEntities();
@@ -139,25 +148,30 @@ export class HomeAssistantCallServiceTool implements FreyaTool {
   getDefinition(): ToolDefinition {
     return {
       name: 'homeassistant_call_service',
-      description: '调用 Home Assistant 设备控制服务（例如开关灯、控制开关、调节温度等）。',
+      // 设备控制服务调用描述
+      description: 'Call Home Assistant device control services (e.g. turn on/off lights, toggle switches, set temperature, etc.).',
       parameters: {
         type: 'object',
         properties: {
           domain: {
             type: 'string',
-            description: '服务域，例如 "light"、"switch"、"cover"、"climate" 等。'
+            // 服务域参数
+            description: 'Service domain, e.g. "light", "switch", "cover", "climate", etc.'
           },
           service: {
             type: 'string',
-            description: '服务名称，例如 "turn_on"、"turn_off"、"toggle" 等。'
+            // 服务名参数
+            description: 'Service name, e.g. "turn_on", "turn_off", "toggle", etc.'
           },
           entity_id: {
             type: 'string',
-            description: '目标实体唯一标识 ID，例如 "light.living_room"。'
+            // 目标实体 ID 参数
+            description: 'Target entity unique identifier ID, e.g. "light.living_room".'
           },
           service_data: {
             type: 'object',
-            description: '可选的服务附加参数，例如亮度、颜色、目标温度等。'
+            // 附加数据参数
+            description: 'Optional additional service parameters, such as brightness, color, target temperature, etc.'
           }
         },
         required: ['domain', 'service', 'entity_id']
@@ -180,8 +194,9 @@ export class HomeAssistantCallServiceTool implements FreyaTool {
     }
 
     const result = await this.client.callService(domain, service, payload);
-    const detail = result && Object.keys(result).length > 0 ? ` 返回信息: ${JSON.stringify(result)}` : '';
-    return `服务 "${domain}.${service}" 执行成功。${detail}`.trim();
+    const detail = result && Object.keys(result).length > 0 ? ` Response details: ${JSON.stringify(result)}` : '';
+    // 执行成功出参
+    return `Service "${domain}.${service}" executed successfully.${detail}`.trim();
   }
 }
 
@@ -195,13 +210,15 @@ export class HomeAssistantListServicesTool implements FreyaTool {
   getDefinition(): ToolDefinition {
     return {
       name: 'homeassistant_list_services',
-      description: '查询 Home Assistant 中支持的服务列表及各服务的参数说明（可按 domain 域筛选，例如 "light"、"switch"、"climate" 等）。',
+      // 服务列表及参数查询工具描述
+      description: 'Query supported services in Home Assistant and parameter definitions for each service (can filter by domain, e.g. "light", "switch", "climate", etc.).',
       parameters: {
         type: 'object',
         properties: {
           domain: {
             type: 'string',
-            description: '可选的域名称筛选，例如 "light"、"switch"、"climate"、"cover" 等。如果指定，只返回该域下的服务及详细参数定义。'
+            // 域名筛选参数
+            description: 'Optional domain name filter, e.g. "light", "switch", "climate", "cover", etc. If specified, only services under that domain with parameter definitions are returned.'
           }
         }
       }
@@ -215,19 +232,21 @@ export class HomeAssistantListServicesTool implements FreyaTool {
     if (domainFilter) {
       const matched = allServices.find((item) => item.domain.toLowerCase() === domainFilter);
       if (!matched || !matched.services) {
-        return `未找到与域 "${domainFilter}" 相关的服务。`;
+        // 未找到域相关服务出参
+        return `No services found for domain "${domainFilter}".`;
       }
 
-      const lines: string[] = [`域 "${domainFilter}" 支持的可用服务如下：`];
+      // 域支持的服务详情列表出参
+      const lines: string[] = [`Available services supported by domain "${domainFilter}":`];
       for (const [serviceName, serviceDef] of Object.entries(matched.services)) {
         const desc = serviceDef?.description ? ` - ${serviceDef.description}` : '';
         lines.push(`\n### ${domainFilter}.${serviceName}${desc}`);
 
         if (serviceDef?.fields && Object.keys(serviceDef.fields).length > 0) {
-          lines.push('  参数列表:');
+          lines.push('  Parameters:');
           for (const [fieldName, fieldDef] of Object.entries<any>(serviceDef.fields)) {
             const fieldDesc = fieldDef?.description ? `: ${fieldDef.description}` : '';
-            const example = fieldDef?.example !== undefined ? ` (示例: ${JSON.stringify(fieldDef.example)})` : '';
+            const example = fieldDef?.example !== undefined ? ` (example: ${JSON.stringify(fieldDef.example)})` : '';
             lines.push(`    - ${fieldName}${fieldDesc}${example}`);
           }
         }
@@ -236,6 +255,7 @@ export class HomeAssistantListServicesTool implements FreyaTool {
     }
 
     const domainNames = allServices.map((item) => item.domain).sort();
-    return `当前系统支持以下 ${domainNames.length} 个服务域（如需查询某个域的详细服务与参数说明，请传入具体 domain 参数）：\n${domainNames.join(', ')}`;
+    // 全局支持域列表出参
+    return `Currently supported ${domainNames.length} service domains (to inspect detailed services and parameters for a domain, provide the domain argument):\n${domainNames.join(', ')}`;
   }
 }

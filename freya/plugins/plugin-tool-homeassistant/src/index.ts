@@ -42,11 +42,11 @@ export default class HomeAssistantPlugin implements ToolPlugin {
   getTools(): FreyaTool[] {
     const tools: FreyaTool[] = [
       this.listTool,
-      this.getStateTool,
-      this.listServicesTool
+      this.getStateTool
     ];
 
     if (this.security.isControlAllowed()) {
+      tools.push(this.listServicesTool);
       tools.push(this.callServiceTool);
     }
 
