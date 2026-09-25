@@ -7,6 +7,7 @@
   "freya": {
     "displayName": "Home Assistant 智能交互工具集",
     "defaultEnabled": true,
+    "schema": "./schema.json",
     "prompts": [
       "plugin.prompt.homeassistant.md"
     ]

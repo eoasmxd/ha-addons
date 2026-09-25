@@ -1,0 +1,10 @@
+[
+  {
+    "key": "homeassistant.allowControl",
+    "defaultValue": false,
+    "description": "允许智能体调用设备控制服务 (关闭时为安全只读模式，仅允许查询状态)",
+    "type": "boolean",
+    "category": "权限与安全",
+    "manualOnly": true
+  }
+]

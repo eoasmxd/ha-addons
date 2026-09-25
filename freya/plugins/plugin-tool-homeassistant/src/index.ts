@@ -20,6 +20,7 @@ export default class HomeAssistantPlugin implements ToolPlugin {
   private readonly callServiceTool = new HomeAssistantCallServiceTool(this.client, this.security);
 
   async setup(ctx: FreyaContext): Promise<void> {
+    this.security.setContext(ctx);
     this.client.startBackgroundSync(60_000);
   }
 

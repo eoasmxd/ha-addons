@@ -1,28 +1,16 @@
-import fs from 'node:fs';
+import type { FreyaContext } from '@eoasmxd/freya-sdk';
 
 /** Home Assistant 实体访问控制与权限安全网关 */
 export class HomeAssistantSecurityGateway {
-  private controlAllowed = false;
-  private readonly optionsPath: string;
-  constructor(optionsPath = '/data/options.json') {
-    this.optionsPath = optionsPath;
-    this.loadOptions();
-  }
+  private ctx?: FreyaContext;
 
-  private loadOptions(): void {
-    try {
-      if (fs.existsSync(this.optionsPath)) {
-        const raw = fs.readFileSync(this.optionsPath, 'utf-8');
-        const parsed = JSON.parse(raw);
-        this.controlAllowed = Boolean(parsed.allow_control);
-      }
-    } catch {
-      this.controlAllowed = false;
-    }
+  setContext(ctx: FreyaContext): void {
+    this.ctx = ctx;
   }
 
   isControlAllowed(): boolean {
-    return this.controlAllowed;
+    const cfg = (this.ctx?.config as any)?.homeassistant;
+    return Boolean(cfg?.allowControl);
   }
 
   assertEntityExposed(entityId: string, exposedSet: Set<string>): void {

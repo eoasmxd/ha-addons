@@ -21,7 +21,3 @@ map:
 
 homeassistant_api: true
 
-options:
-  allow_control: false
-schema:
-  allow_control: bool
