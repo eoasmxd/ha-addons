@@ -2,9 +2,15 @@
   {
     "key": "homeassistant.allowControl",
     "defaultValue": false,
-    "description": "允许智能体调用设备控制服务 (关闭时为安全只读模式，仅允许查询状态)",
+    "description": {
+      "zh": "允许智能体调用设备控制服务 (关闭时为安全只读模式，仅允许查询状态)",
+      "en": "Allow agent to call device control services (safe read-only mode when disabled, query states only)"
+    },
     "type": "boolean",
-    "category": "权限与安全",
+    "category": {
+      "zh": "权限与安全",
+      "en": "Permissions & Security"
+    },
     "manualOnly": true
   }
 ]

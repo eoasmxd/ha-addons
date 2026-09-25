@@ -3,9 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
-  "description": "Freya Home Assistant 交互工具集插件",
+  "description": "Freya Home Assistant interaction and control toolbox plugin",
   "freya": {
-    "displayName": "Home Assistant 智能交互工具集",
+    "displayName": {
+      "zh": "Home Assistant 智能交互工具集",
+      "en": "Home Assistant Smart Control Toolbox"
+    },
+    "description": {
+      "zh": "Freya Home Assistant 交互工具集插件",
+      "en": "Freya Home Assistant interaction and control toolbox plugin"
+    },
     "defaultEnabled": true,
     "schema": "./schema.json",
     "prompts": [

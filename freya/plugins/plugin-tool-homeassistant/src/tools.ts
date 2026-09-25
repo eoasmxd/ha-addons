@@ -1,4 +1,4 @@
-import type { FreyaContext, FreyaTool, ToolDefinition } from '@eoasmxd/freya-sdk';
+import type { FreyaTool, ToolDefinition } from '@eoasmxd/freya-sdk';
 import type { HomeAssistantClient } from './client.js';
 import type { HomeAssistantSecurityGateway } from './security.js';
 
@@ -35,7 +35,7 @@ export class HomeAssistantListEntitiesTool implements FreyaTool {
     };
   }
 
-  async execute(args: Record<string, any>, ctx: FreyaContext): Promise<string> {
+  async execute(args: Record<string, any>): Promise<string> {
     const exposedSet = await this.client.getExposedEntities();
     if (exposedSet.size === 0) {
       // 未检索到可用实体出参
@@ -110,7 +110,7 @@ export class HomeAssistantGetStateTool implements FreyaTool {
     };
   }
 
-  async execute(args: Record<string, any>, ctx: FreyaContext): Promise<string> {
+  async execute(args: Record<string, any>): Promise<string> {
     const entityId = String(args.entity_id || '').trim();
     if (!entityId) {
       // 缺少实体 ID 出参
@@ -179,7 +179,7 @@ export class HomeAssistantCallServiceTool implements FreyaTool {
     };
   }
 
-  async execute(args: Record<string, any>, ctx: FreyaContext): Promise<string> {
+  async execute(args: Record<string, any>): Promise<string> {
     const domain = String(args.domain || '').trim();
     const service = String(args.service || '').trim();
     const entityId = args.entity_id ? String(args.entity_id).trim() : undefined;
@@ -225,7 +225,7 @@ export class HomeAssistantListServicesTool implements FreyaTool {
     };
   }
 
-  async execute(args: Record<string, any>, ctx: FreyaContext): Promise<string> {
+  async execute(args: Record<string, any>): Promise<string> {
     const allServices = await this.client.getServices();
     const domainFilter = typeof args.domain === 'string' ? args.domain.trim().toLowerCase() : '';
 
