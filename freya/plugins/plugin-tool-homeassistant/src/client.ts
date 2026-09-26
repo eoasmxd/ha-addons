@@ -1,6 +1,9 @@
 import type { HAEntityState, HAServiceDomain, HomeAssistantClientConfig } from './types.js';
 
-/** Home Assistant REST 与 WebSocket 通信客户端 */
+/**
+ * Home Assistant REST 与 WebSocket 通信客户端
+ * Home Assistant REST and WebSocket communication client
+ */
 export class HomeAssistantClient {
   private readonly config: HomeAssistantClientConfig;
   private readonly cacheTtlMs: number;
@@ -68,7 +71,8 @@ export class HomeAssistantClient {
 
     this.syncPromise = new Promise<Set<string>>((resolve, reject) => {
       if (!this.config.token) {
-        return reject(new Error('未检测到 SUPERVISOR_TOKEN 或 HA_TOKEN 凭据。'));
+        // 未检测到 SUPERVISOR_TOKEN 或 HA_TOKEN 凭据
+        return reject(new Error('SUPERVISOR_TOKEN or HA_TOKEN credential not found.'));
       }
 
       const socket = new WebSocket(this.config.wsUrl);
@@ -92,7 +96,8 @@ export class HomeAssistantClient {
       };
 
       const timer = setTimeout(() => {
-        finish(new Error('连接 Home Assistant WebSocket 超时。'));
+        // 连接 Home Assistant WebSocket 超时
+        finish(new Error('Home Assistant WebSocket connection timeout.'));
       }, 10_000);
 
       socket.onopen = () => { };
@@ -117,13 +122,15 @@ export class HomeAssistantClient {
           }
 
           if (data.type === 'auth_invalid') {
-            finish(new Error(`WebSocket 鉴权失败: ${data.message || '凭据无效'}`));
+            // WebSocket 鉴权失败
+            finish(new Error(`WebSocket authentication failed: ${data.message || 'Invalid token'}`));
             return;
           }
 
           if (data.type === 'result') {
             if (!data.success) {
-              finish(new Error(`获取暴露实体列表失败: ${data.error?.message || '未知错误'}`));
+              // 获取暴露实体列表失败
+              finish(new Error(`Failed to get exposed entities: ${data.error?.message || 'Unknown error'}`));
               return;
             }
 
@@ -150,11 +157,13 @@ export class HomeAssistantClient {
       };
 
       socket.onerror = (err: any) => {
-        finish(err instanceof Error ? err : new Error('WebSocket 通信异常。'));
+        // WebSocket 通信异常
+        finish(err instanceof Error ? err : new Error('WebSocket communication error.'));
       };
 
       socket.onclose = () => {
-        finish(new Error('WebSocket 连接已关闭。'));
+        // WebSocket 连接已关闭
+        finish(new Error('WebSocket connection closed.'));
       };
     }).finally(() => {
       this.syncPromise = null;
@@ -176,7 +185,8 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      throw new Error(`查询实体状态失败 [${response.status}]: ${errText || response.statusText}`);
+      // 查询实体状态失败
+      throw new Error(`Failed to query states [${response.status}]: ${errText || response.statusText}`);
     }
 
     return (await response.json()) as HAEntityState[];
@@ -195,7 +205,8 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      throw new Error(`查询实体 "${entityId}" 状态失败 [${response.status}]: ${errText || response.statusText}`);
+      // 查询实体状态失败
+      throw new Error(`Failed to query state for entity "${entityId}" [${response.status}]: ${errText || response.statusText}`);
     }
 
     return (await response.json()) as HAEntityState;
@@ -215,7 +226,8 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      throw new Error(`调用服务 "${domain}.${service}" 失败 [${response.status}]: ${errText || response.statusText}`);
+      // 调用服务失败
+      throw new Error(`Failed to call service "${domain}.${service}" [${response.status}]: ${errText || response.statusText}`);
     }
 
     return await response.json().catch(() => ({}));
@@ -234,9 +246,53 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      throw new Error(`查询服务列表失败 [${response.status}]: ${errText || response.statusText}`);
+      // 查询服务列表失败
+      throw new Error(`Failed to query services [${response.status}]: ${errText || response.statusText}`);
     }
 
     return (await response.json()) as HAServiceDomain[];
+  }
+
+  async getHistory(
+    entityId: string,
+    options?: {
+      startTime?: string;
+      endTime?: string;
+      significantChangesOnly?: boolean;
+      minimalResponse?: boolean;
+    }
+  ): Promise<HAEntityState[]> {
+    const timestamp = options?.startTime ? encodeURIComponent(options.startTime) : '';
+    const endpoint = timestamp ? `/history/period/${timestamp}` : '/history/period';
+    const params = new URLSearchParams();
+    params.set('filter_entity_id', entityId);
+    if (options?.endTime) {
+      params.set('end_time', options.endTime);
+    }
+    if (options?.significantChangesOnly !== false) {
+      params.set('significant_changes_only', '1');
+    }
+    if (options?.minimalResponse !== false) {
+      params.set('minimal_response', '1');
+    }
+
+    const url = `${this.config.baseUrl}${endpoint}?${params.toString()}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.config.token}`,
+        'Content-Type': 'application/json'
+      },
+      signal: AbortSignal.timeout(15_000)
+    });
+
+    if (!response.ok) {
+      const errText = await response.text().catch(() => '');
+      // 查询实体历史记录失败
+      throw new Error(`Failed to query history for entity "${entityId}" [${response.status}]: ${errText || response.statusText}`);
+    }
+
+    const data = (await response.json()) as HAEntityState[][];
+    return Array.isArray(data) && data.length > 0 && Array.isArray(data[0]) ? data[0] : [];
   }
 }

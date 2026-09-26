@@ -1,3 +1,3 @@
-Home Assistant 智能家居交互工具箱。
+Home Assistant smart home interaction toolbox.
 
-提供获取 Home Assistant 实体列表以及查询实体实时状态与属性的能力。在针对具体设备进行交互前，建议先使用工具查询确认实体的准确 ID 与当前状态。
+Provides capabilities to list accessible Home Assistant entities, query real-time states and attributes, and retrieve historical state changes. Before interacting with specific devices, always query and confirm the exact entity ID and its current state.

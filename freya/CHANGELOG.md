@@ -1,13 +1,28 @@
-# 更新日志
+# Changelog
+
+## 0.6.1
+
+- Upgrade Freya core and SDK to `0.6.1` with enhanced multi-language (i18n) support.
+- Update dependencies and improve Home Assistant plugin integration.
+
+- 升级 Freya 核心与 SDK 至 `0.6.1`，包含增强的多语言（i18n）支持与架构优化。
+- 更新依赖项并优化 Home Assistant 插件集成。
 
 ## 0.5.3
 
-- 新增内置 Home Assistant 专用智能交互工具箱。
-- 支持感知由 Home Assistant 官方语音助手（Assist）暴露的实体列表与实时状态查询。
-- 支持查询 Home Assistant 服务定义列表及各服务详细参数。
-- 支持调用设备控制服务，并提供 `allow_control` 只读模式安全保护开关（默认关闭）。
+- Built-in Home Assistant smart interaction toolbox with Assist entity state awareness and service call capabilities.
+- Added `allowControl` security switch for device control safety.
+
+- 新增内置 Home Assistant 专用智能交互工具箱，支持 Assist 实体状态感知与服务调用。
+- 提供 `allowControl` 安全控制开关，保障设备控制安全。
 
 ## 0.5.2
 
-- 适用于 Home Assistant 的 Freya 应用版本。
-- 支持 Ingress 侧边栏一键集成与 Web 交互。
+- Initial release of Freya Home Assistant Add-on.
+- Support Ingress sidebar integration and Web UI interaction.
+
+- 适用于 Home Assistant 的 Freya 应用初始版本。
+- 支持 Ingress 侧边栏集成与 Web 交互。
+
+
+

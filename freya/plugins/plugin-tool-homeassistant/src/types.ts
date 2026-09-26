@@ -1,4 +1,7 @@
-/** Home Assistant 实体实时状态数据模型 */
+/**
+ * Home Assistant 实体实时状态数据模型
+ * Home Assistant entity real-time state data model
+ */
 export interface HAEntityState {
   entity_id: string;
   state: string;
@@ -7,7 +10,10 @@ export interface HAEntityState {
   last_updated?: string;
 }
 
-/** Home Assistant 服务域及其包含的服务定义集合 */
+/**
+ * Home Assistant 服务域及其包含的服务定义集合
+ * Home Assistant service domain and service definition collection
+ */
 export interface HAServiceDomain {
   domain: string;
   services: Record<string, {
@@ -20,7 +26,10 @@ export interface HAServiceDomain {
   }>;
 }
 
-/** Home Assistant 客户端通信配置 */
+/**
+ * Home Assistant 客户端通信配置
+ * Home Assistant client communication configuration
+ */
 export interface HomeAssistantClientConfig {
   baseUrl: string;
   wsUrl: string;

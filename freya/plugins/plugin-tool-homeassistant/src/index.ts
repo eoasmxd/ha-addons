@@ -3,12 +3,16 @@ import { HomeAssistantClient } from './client.js';
 import { HomeAssistantSecurityGateway } from './security.js';
 import {
   HomeAssistantCallServiceTool,
+  HomeAssistantGetHistoryTool,
   HomeAssistantGetStateTool,
   HomeAssistantListEntitiesTool,
   HomeAssistantListServicesTool
 } from './tools.js';
 
-/** Home Assistant 智能家居交互工具箱插件 */
+/**
+ * Home Assistant 智能家居交互工具箱插件
+ * Home Assistant smart home interaction toolbox plugin
+ */
 export default class HomeAssistantPlugin implements ToolPlugin {
   type = 'tool' as const;
 
@@ -16,10 +20,12 @@ export default class HomeAssistantPlugin implements ToolPlugin {
   private readonly security = new HomeAssistantSecurityGateway();
   private readonly listTool = new HomeAssistantListEntitiesTool(this.client, this.security);
   private readonly getStateTool = new HomeAssistantGetStateTool(this.client, this.security);
+  private readonly getHistoryTool = new HomeAssistantGetHistoryTool(this.client, this.security);
   private readonly listServicesTool = new HomeAssistantListServicesTool(this.client);
   private readonly callServiceTool = new HomeAssistantCallServiceTool(this.client, this.security);
 
   async setup(ctx: FreyaContext): Promise<void> {
+    this.security.setContext(ctx);
     this.client.startBackgroundSync(60_000);
   }
 
@@ -39,10 +45,11 @@ export default class HomeAssistantPlugin implements ToolPlugin {
     const tools: FreyaTool[] = [
       this.listTool,
       this.getStateTool,
-      this.listServicesTool
+      this.getHistoryTool
     ];
 
     if (this.security.isControlAllowed()) {
+      tools.push(this.listServicesTool);
       tools.push(this.callServiceTool);
     }
 
