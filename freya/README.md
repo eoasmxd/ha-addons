@@ -1,6 +1,6 @@
 # Freya
 
-A lightweight AI agent system based on a microkernel architecture with native Home Assistant integration.  
+A lightweight AI agent system based on a microkernel architecture with native Home Assistant integration.
 基于微内核架构的轻量级智能体系统，支持 Home Assistant 原生交互。
 
 ---
@@ -20,7 +20,7 @@ A lightweight AI agent system based on a microkernel architecture with native Ho
 
 ---
 
-> 📖 For detailed setup, persistence configuration, and permission controls, please see the **Documentation** tab.  
+> 📖 For detailed setup, persistence configuration, and permission controls, please see the **Documentation** tab.
 > 🔗 Project repository: [eoasmxd/freya](https://github.com/eoasmxd/freya)
 
 ---
@@ -40,5 +40,4 @@ A lightweight AI agent system based on a microkernel architecture with native Ho
 
 ---
 
-> 📖 详细使用指引、持久化路径与权限配置，请切换至顶部的 **“文档 (Documentation)”** 选项卡查看。  
 > 🔗 项目仓库：[eoasmxd/freya](https://github.com/eoasmxd/freya)
