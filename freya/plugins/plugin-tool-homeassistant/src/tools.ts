@@ -274,14 +274,14 @@ export class HomeAssistantGetHistoryTool implements FreyaTool {
     return {
       name: 'homeassistant_get_history',
       // 实体历史状态查询描述
-      description: 'Query historical state change records for a specified entity in Home Assistant.',
+      description: 'Query historical state change records for a single entity in Home Assistant.',
       parameters: {
         type: 'object',
         properties: {
           entity_id: {
             type: 'string',
             // 目标实体 ID 参数
-            description: 'Unique entity ID, e.g. "sensor.living_room_temperature" or "climate.bedroom_ac".'
+            description: 'Single entity ID (e.g. "sensor.living_room_temperature"). Only one entity is allowed per query.'
           },
           start_time: {
             type: 'string',
@@ -292,11 +292,6 @@ export class HomeAssistantGetHistoryTool implements FreyaTool {
             type: 'string',
             // 结束时间 ISO 8601 参数
             description: 'Optional end timestamp in ISO 8601 format (e.g. "2023-01-01T23:59:59Z").'
-          },
-          significant_changes_only: {
-            type: 'boolean',
-            // 是否仅返回显著变化
-            description: 'Whether to return only significant state changes (defaults to true).'
           }
         },
         required: ['entity_id']
@@ -311,14 +306,16 @@ export class HomeAssistantGetHistoryTool implements FreyaTool {
       return 'Error: entity_id is required.';
     }
 
+    if (entityId.includes(',') || entityId.includes(' ') || entityId.includes(';')) {
+      return 'Error: Only a single entity_id is allowed per query.';
+    }
+
     const exposedSet = await this.client.getExposedEntities();
     this.security.assertEntityExposed(entityId, exposedSet);
 
     const history = await this.client.getHistory(entityId, {
       startTime: typeof args.start_time === 'string' ? args.start_time.trim() : undefined,
-      endTime: typeof args.end_time === 'string' ? args.end_time.trim() : undefined,
-      significantChangesOnly: args.significant_changes_only !== false,
-      minimalResponse: true
+      endTime: typeof args.end_time === 'string' ? args.end_time.trim() : undefined
     });
 
     if (history.length === 0) {
@@ -326,19 +323,27 @@ export class HomeAssistantGetHistoryTool implements FreyaTool {
       return `No history records found for entity "${entityId}".`;
     }
 
-    const formatted = history.map((item) => ({
-      state: item.state,
-      last_changed: item.last_changed || item.last_updated
-    }));
+    const maxDataRows = 98;
+    let sampled = history;
+    if (history.length > maxDataRows) {
+      sampled = [];
+      const step = (history.length - 1) / (maxDataRows - 1);
+      for (let i = 0; i < maxDataRows; i++) {
+        const idx = Math.min(Math.round(i * step), history.length - 1);
+        sampled.push(history[idx]);
+      }
+    }
 
-    return JSON.stringify(
-      {
-        entity_id: entityId,
-        count: formatted.length,
-        history: formatted
-      },
-      null,
-      2
-    );
+    const lines = [
+      `Entity: ${entityId} (Total: ${history.length}, Sampled: ${sampled.length})`,
+      'Timestamp | State'
+    ];
+
+    for (const item of sampled) {
+      const time = item.last_changed || item.last_updated || 'unknown';
+      lines.push(`${time} | ${item.state}`);
+    }
+
+    return lines.join('\n');
   }
 }

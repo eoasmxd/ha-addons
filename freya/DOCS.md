@@ -1,8 +1,3 @@
-[English](#english) | [简体中文](#简体中文)
-
----
-
-<a id="english"></a>
 ## English
 
 A lightweight AI agent system based on a microkernel architecture with built-in Web interaction and automation channels.
@@ -30,7 +25,6 @@ This add-on features a built-in smart interaction toolbox dedicated to Home Assi
 
 ---
 
-<a id="简体中文"></a>
 ## 简体中文
 
 基于微内核架构的轻量级智能体系统，内置 Web 交互与自动化通道。

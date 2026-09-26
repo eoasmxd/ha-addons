@@ -8,9 +8,9 @@ Home Assistant 应用（Add-ons）仓库。
 
 ## 📦 应用列表
 
-| 应用 | 简介 | 支持架构 | 上游项目 |
+| 应用 | 简介 | 支持架构 | 项目 |
 | :--- | :--- | :--- | :--- |
-| **[Freya](./freya)** | 轻量级智能体系统，支持 Home Assistant 状态感知与设备控制 | `amd64` / `aarch64` | [eoasmxd/freya](https://github.com/eoasmxd/freya) |
+| **[Freya](./freya)** | 轻量级智能体系统，支持 Home Assistant 状态感知与设备控制 | `amd64` / `aarch64` | [freya](https://github.com/eoasmxd/freya) |
 
 ---
 
