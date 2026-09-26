@@ -258,8 +258,6 @@ export class HomeAssistantClient {
     options?: {
       startTime?: string;
       endTime?: string;
-      significantChangesOnly?: boolean;
-      minimalResponse?: boolean;
     }
   ): Promise<HAEntityState[]> {
     const timestamp = options?.startTime ? encodeURIComponent(options.startTime) : '';
@@ -269,12 +267,8 @@ export class HomeAssistantClient {
     if (options?.endTime) {
       params.set('end_time', options.endTime);
     }
-    if (options?.significantChangesOnly !== false) {
-      params.set('significant_changes_only', '1');
-    }
-    if (options?.minimalResponse !== false) {
-      params.set('minimal_response', '1');
-    }
+    params.set('significant_changes_only', '1');
+    params.set('minimal_response', '1');
 
     const url = `${this.config.baseUrl}${endpoint}?${params.toString()}`;
     const response = await fetch(url, {

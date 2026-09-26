@@ -8,9 +8,9 @@ Home Assistant Add-on repository.
 
 ## 📦 Add-on List
 
-| Add-on | Description | Supported Architectures | Upstream Repository |
+| Add-on | Description | Supported Architectures | Repository |
 | :--- | :--- | :--- | :--- |
-| **[Freya](./freya)** | Lightweight AI agent system with Home Assistant entity state awareness and device control | `amd64` / `aarch64` | [eoasmxd/freya](https://github.com/eoasmxd/freya) |
+| **[Freya](./freya)** | Lightweight AI agent system with Home Assistant entity state awareness and device control | `amd64` / `aarch64` | [freya](https://github.com/eoasmxd/freya) |
 
 ---
 
