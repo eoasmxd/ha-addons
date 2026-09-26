@@ -252,4 +252,47 @@ export class HomeAssistantClient {
 
     return (await response.json()) as HAServiceDomain[];
   }
+
+  async getHistory(
+    entityId: string,
+    options?: {
+      startTime?: string;
+      endTime?: string;
+      significantChangesOnly?: boolean;
+      minimalResponse?: boolean;
+    }
+  ): Promise<HAEntityState[]> {
+    const timestamp = options?.startTime ? encodeURIComponent(options.startTime) : '';
+    const endpoint = timestamp ? `/history/period/${timestamp}` : '/history/period';
+    const params = new URLSearchParams();
+    params.set('filter_entity_id', entityId);
+    if (options?.endTime) {
+      params.set('end_time', options.endTime);
+    }
+    if (options?.significantChangesOnly !== false) {
+      params.set('significant_changes_only', '1');
+    }
+    if (options?.minimalResponse !== false) {
+      params.set('minimal_response', '1');
+    }
+
+    const url = `${this.config.baseUrl}${endpoint}?${params.toString()}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.config.token}`,
+        'Content-Type': 'application/json'
+      },
+      signal: AbortSignal.timeout(15_000)
+    });
+
+    if (!response.ok) {
+      const errText = await response.text().catch(() => '');
+      // 查询实体历史记录失败
+      throw new Error(`Failed to query history for entity "${entityId}" [${response.status}]: ${errText || response.statusText}`);
+    }
+
+    const data = (await response.json()) as HAEntityState[][];
+    return Array.isArray(data) && data.length > 0 && Array.isArray(data[0]) ? data[0] : [];
+  }
 }

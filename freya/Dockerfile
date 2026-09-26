@@ -30,4 +30,4 @@ COPY --from=builder /build/plugin-tool-homeassistant/config /app/plugins/plugin-
 
 EXPOSE 3000
 
-CMD ["freya", "--no-cli", "--foreground"]
+CMD ["freya", "--no-cli", "--foreground", "--port", "3000"]

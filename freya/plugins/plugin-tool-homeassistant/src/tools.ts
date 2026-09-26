@@ -259,3 +259,86 @@ export class HomeAssistantListServicesTool implements FreyaTool {
     return `Currently supported ${domainNames.length} service domains (to inspect detailed services and parameters for a domain, provide the domain argument):\n${domainNames.join(', ')}`;
   }
 }
+
+/**
+ * Home Assistant 实体历史状态查询工具
+ * Home Assistant entity state history query tool
+ */
+export class HomeAssistantGetHistoryTool implements FreyaTool {
+  constructor(
+    private readonly client: HomeAssistantClient,
+    private readonly security: HomeAssistantSecurityGateway
+  ) { }
+
+  getDefinition(): ToolDefinition {
+    return {
+      name: 'homeassistant_get_history',
+      // 实体历史状态查询描述
+      description: 'Query historical state change records for a specified entity in Home Assistant.',
+      parameters: {
+        type: 'object',
+        properties: {
+          entity_id: {
+            type: 'string',
+            // 目标实体 ID 参数
+            description: 'Unique entity ID, e.g. "sensor.living_room_temperature" or "climate.bedroom_ac".'
+          },
+          start_time: {
+            type: 'string',
+            // 起始时间 ISO 8601 参数
+            description: 'Optional start timestamp in ISO 8601 format (e.g. "2023-01-01T00:00:00Z"). Defaults to 24 hours ago.'
+          },
+          end_time: {
+            type: 'string',
+            // 结束时间 ISO 8601 参数
+            description: 'Optional end timestamp in ISO 8601 format (e.g. "2023-01-01T23:59:59Z").'
+          },
+          significant_changes_only: {
+            type: 'boolean',
+            // 是否仅返回显著变化
+            description: 'Whether to return only significant state changes (defaults to true).'
+          }
+        },
+        required: ['entity_id']
+      }
+    };
+  }
+
+  async execute(args: Record<string, any>): Promise<string> {
+    const entityId = String(args.entity_id || '').trim();
+    if (!entityId) {
+      // 缺少实体 ID 出参
+      return 'Error: entity_id is required.';
+    }
+
+    const exposedSet = await this.client.getExposedEntities();
+    this.security.assertEntityExposed(entityId, exposedSet);
+
+    const history = await this.client.getHistory(entityId, {
+      startTime: typeof args.start_time === 'string' ? args.start_time.trim() : undefined,
+      endTime: typeof args.end_time === 'string' ? args.end_time.trim() : undefined,
+      significantChangesOnly: args.significant_changes_only !== false,
+      minimalResponse: true
+    });
+
+    if (history.length === 0) {
+      // 未查询到历史记录
+      return `No history records found for entity "${entityId}".`;
+    }
+
+    const formatted = history.map((item) => ({
+      state: item.state,
+      last_changed: item.last_changed || item.last_updated
+    }));
+
+    return JSON.stringify(
+      {
+        entity_id: entityId,
+        count: formatted.length,
+        history: formatted
+      },
+      null,
+      2
+    );
+  }
+}

@@ -3,6 +3,7 @@ import { HomeAssistantClient } from './client.js';
 import { HomeAssistantSecurityGateway } from './security.js';
 import {
   HomeAssistantCallServiceTool,
+  HomeAssistantGetHistoryTool,
   HomeAssistantGetStateTool,
   HomeAssistantListEntitiesTool,
   HomeAssistantListServicesTool
@@ -19,6 +20,7 @@ export default class HomeAssistantPlugin implements ToolPlugin {
   private readonly security = new HomeAssistantSecurityGateway();
   private readonly listTool = new HomeAssistantListEntitiesTool(this.client, this.security);
   private readonly getStateTool = new HomeAssistantGetStateTool(this.client, this.security);
+  private readonly getHistoryTool = new HomeAssistantGetHistoryTool(this.client, this.security);
   private readonly listServicesTool = new HomeAssistantListServicesTool(this.client);
   private readonly callServiceTool = new HomeAssistantCallServiceTool(this.client, this.security);
 
@@ -42,7 +44,8 @@ export default class HomeAssistantPlugin implements ToolPlugin {
   getTools(): FreyaTool[] {
     const tools: FreyaTool[] = [
       this.listTool,
-      this.getStateTool
+      this.getStateTool,
+      this.getHistoryTool
     ];
 
     if (this.security.isControlAllowed()) {
