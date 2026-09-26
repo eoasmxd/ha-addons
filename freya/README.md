@@ -20,7 +20,6 @@ A lightweight AI agent system based on a microkernel architecture with native Ho
 
 ---
 
-> 📖 For detailed setup, persistence configuration, and permission controls, please see the **Documentation** tab.
 > 🔗 Project repository: [eoasmxd/freya](https://github.com/eoasmxd/freya)
 
 ---
