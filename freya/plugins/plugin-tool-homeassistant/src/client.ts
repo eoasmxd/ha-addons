@@ -71,7 +71,8 @@ export class HomeAssistantClient {
 
     this.syncPromise = new Promise<Set<string>>((resolve, reject) => {
       if (!this.config.token) {
-        return reject(new Error('未检测到 SUPERVISOR_TOKEN 或 HA_TOKEN 凭据。'));
+        // 未检测到 SUPERVISOR_TOKEN 或 HA_TOKEN 凭据
+        return reject(new Error('SUPERVISOR_TOKEN or HA_TOKEN credential not found.'));
       }
 
       const socket = new WebSocket(this.config.wsUrl);
@@ -95,7 +96,8 @@ export class HomeAssistantClient {
       };
 
       const timer = setTimeout(() => {
-        finish(new Error('连接 Home Assistant WebSocket 超时。'));
+        // 连接 Home Assistant WebSocket 超时
+        finish(new Error('Home Assistant WebSocket connection timeout.'));
       }, 10_000);
 
       socket.onopen = () => { };
@@ -120,13 +122,15 @@ export class HomeAssistantClient {
           }
 
           if (data.type === 'auth_invalid') {
-            finish(new Error(`WebSocket 鉴权失败: ${data.message || '凭据无效'}`));
+            // WebSocket 鉴权失败
+            finish(new Error(`WebSocket authentication failed: ${data.message || 'Invalid token'}`));
             return;
           }
 
           if (data.type === 'result') {
             if (!data.success) {
-              finish(new Error(`获取暴露实体列表失败: ${data.error?.message || '未知错误'}`));
+              // 获取暴露实体列表失败
+              finish(new Error(`Failed to get exposed entities: ${data.error?.message || 'Unknown error'}`));
               return;
             }
 
@@ -153,11 +157,13 @@ export class HomeAssistantClient {
       };
 
       socket.onerror = (err: any) => {
-        finish(err instanceof Error ? err : new Error('WebSocket 通信异常。'));
+        // WebSocket 通信异常
+        finish(err instanceof Error ? err : new Error('WebSocket communication error.'));
       };
 
       socket.onclose = () => {
-        finish(new Error('WebSocket 连接已关闭。'));
+        // WebSocket 连接已关闭
+        finish(new Error('WebSocket connection closed.'));
       };
     }).finally(() => {
       this.syncPromise = null;
@@ -179,7 +185,8 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      throw new Error(`查询实体状态失败 [${response.status}]: ${errText || response.statusText}`);
+      // 查询实体状态失败
+      throw new Error(`Failed to query states [${response.status}]: ${errText || response.statusText}`);
     }
 
     return (await response.json()) as HAEntityState[];
@@ -198,7 +205,8 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      throw new Error(`查询实体 "${entityId}" 状态失败 [${response.status}]: ${errText || response.statusText}`);
+      // 查询实体状态失败
+      throw new Error(`Failed to query state for entity "${entityId}" [${response.status}]: ${errText || response.statusText}`);
     }
 
     return (await response.json()) as HAEntityState;
@@ -218,7 +226,8 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      throw new Error(`调用服务 "${domain}.${service}" 失败 [${response.status}]: ${errText || response.statusText}`);
+      // 调用服务失败
+      throw new Error(`Failed to call service "${domain}.${service}" [${response.status}]: ${errText || response.statusText}`);
     }
 
     return await response.json().catch(() => ({}));
@@ -237,7 +246,8 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      throw new Error(`查询服务列表失败 [${response.status}]: ${errText || response.statusText}`);
+      // 查询服务列表失败
+      throw new Error(`Failed to query services [${response.status}]: ${errText || response.statusText}`);
     }
 
     return (await response.json()) as HAServiceDomain[];
