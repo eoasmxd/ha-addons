@@ -1,18 +1,14 @@
-# 操作系统文件
 .DS_Store
 Thumbs.db
 
-# 编辑器配置与临时文件
 .vscode/
 .idea/
 *.swp
 *.log
 
-# 本地临时测试缓存
 tmp/
 scratch/
 
-# Node.js 依赖与构建输出
 node_modules/
 dist/
 *.tsbuildinfo
