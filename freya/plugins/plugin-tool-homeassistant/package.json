@@ -26,7 +26,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@eoasmxd/freya-sdk": "^0.5.2"
+    "@eoasmxd/freya-sdk": "^0.6.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

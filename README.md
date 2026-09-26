@@ -1,40 +1,42 @@
 # Home Assistant Add-ons
 
-Home Assistant 应用（Add-ons）仓库。
+[English](README.md) | [简体中文](README.zh.md)
+
+Home Assistant Add-on repository.
 
 ---
 
-## 📦 应用列表
+## 📦 Add-on List
 
-| 应用 | 简介 | 支持架构 | 上游项目 |
+| Add-on | Description | Supported Architectures | Upstream Repository |
 | :--- | :--- | :--- | :--- |
-| **[Freya](./freya)** | 轻量级智能体系统，支持 Home Assistant 状态感知与设备控制 | `amd64` / `aarch64` | [eoasmxd/freya](https://github.com/eoasmxd/freya) |
+| **[Freya](./freya)** | Lightweight AI agent system with Home Assistant entity state awareness and device control | `amd64` / `aarch64` | [eoasmxd/freya](https://github.com/eoasmxd/freya) |
 
 ---
 
-## 🚀 安装方法
+## 🚀 Installation
 
-### 方式一：一键自动添加（推荐）
+### Method 1: One-Click Automatic Addition (Recommended)
 
-点击下方按钮，直接跳转至您的 Home Assistant 实例并完成仓库添加：
+Click the button below to open your Home Assistant instance and automatically add this repository:
 
-[![在 Home Assistant 中添加此仓库](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Feoasmxd%2Fha-addons)
+[![Add repository to Home Assistant](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Feoasmxd%2Fha-addons)
 
 ---
 
-### 方式二：手动添加仓库
+### Method 2: Manual Addition
 
-1. 进入您的 Home Assistant 控制台。
-2. 依次点击：**设置 (Settings)** -> **应用 (Add-ons)** -> **安装应用 (Add-on Store)**。
-3. 点击右上角的 **三个点 (⋮)**，选择 **仓库 (Repositories)**。
-4. 在输入框中填入本仓库地址并点击添加：
+1. Open your Home Assistant dashboard.
+2. Navigate to: **Settings** -> **Add-ons** -> **Add-on Store**.
+3. Click the **three dots (⋮)** in the top right corner and select **Repositories**.
+4. Enter this repository URL in the input field and click Add:
    ```text
    https://github.com/eoasmxd/ha-addons
    ```
-5. 刷新商店页面，即可在列表中看到 **eoasMXD** 及其下的应用。
+5. Refresh the Add-on Store page to see **eoasMXD** and its add-ons in the list.
 
 ---
 
-## 📄 开源许可
+## 📄 License
 
-本项目遵循 [MIT License](LICENSE) 开源许可协议。
+This project is licensed under the [MIT License](LICENSE).
