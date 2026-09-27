@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.6.4
+
+- Upgrade Freya to `0.6.4`.
+- Fix issue where Home Assistant plugin configuration items were not displayed.
+- Minor UI display optimizations.
+
+- 升级 Freya 至 `0.6.4`。
+- 修复 Home Assistant 插件配置项未在 Web 页面显示的问题。
+- 优化部分界面展示细节。
+
 ## 0.6.3
 
 - Upgrade Freya to `0.6.3`.
