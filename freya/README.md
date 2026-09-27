@@ -11,6 +11,8 @@ A lightweight AI agent system based on a microkernel architecture with native Ho
 
 **Freya** is a lightweight, architecturally clear, and production-ready microkernel AI Agent system. Designed for smart interaction and agent development, it eliminates heavy container sandboxes and complex distributed RPCs in favor of a clean, monolithic microkernel—fully preserving modular plugin extensions, event-driven decoupling, and multi-channel interaction.
 
+> ⚠️ **Prerequisite**: An LLM API Key (e.g. Google Gemini, DeepSeek, OpenAI, or local Ollama) is required. Please refer to the **Documentation** tab in Home Assistant for initial setup.
+
 ### ✨ Key Features
 
 - 🔌 **Microkernel Architecture**: LLM providers, tools, and communication channels are decoupled via standard contracts with hot-reload support, keeping the core runtime lightweight.
@@ -29,6 +31,8 @@ A lightweight AI agent system based on a microkernel architecture with native Ho
 ### 关于
 
 **Freya** 是一个轻量级、架构清晰、生产可用的微内核智能体系统。专为智能家居场景与智能体学习设计，摒弃了繁重的容器沙箱与复杂的分布式 RPC 依赖，采用干净纯粹的单体微内核架构，完整实现插件化扩展、事件驱动解耦及多通道交互能力。
+
+> ⚠️ **前置要求**：使用前需自备大模型 API Key（支持 Google Gemini、DeepSeek、OpenAI、Ollama 等）。具体请在安装后查阅 Home Assistant 内的 **“文档 (Documentation)”** 标签页进行配置。
 
 ### ✨ 核心特性
 

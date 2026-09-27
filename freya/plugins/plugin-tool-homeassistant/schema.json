@@ -7,10 +7,6 @@
       "en": "Allow agent to call device control services (safe read-only mode when disabled, query states only)"
     },
     "type": "boolean",
-    "category": {
-      "zh": "权限与安全",
-      "en": "Permissions & Security"
-    },
     "manualOnly": true
   }
 ]
