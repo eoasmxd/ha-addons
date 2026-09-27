@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.5
+
+- Upgrade Freya to `0.6.5`.
+- Optimize mobile layout and UI display.
+
+- 升级 Freya 至 `0.6.5`。
+- 优化手机端界面排版与交互显示。
+
 ## 0.6.4
 
 - Upgrade Freya to `0.6.4`.
