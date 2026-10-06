@@ -33,7 +33,7 @@ Click the button below to open your Home Assistant instance and automatically ad
    ```text
    https://github.com/eoasmxd/ha-addons
    ```
-5. Refresh the Add-on Store page to see **eoasMXD** and its add-ons in the list.
+5. Refresh the Add-on Store page to see **eoasMXD App Hub** and its apps in the list.
 
 ---
 

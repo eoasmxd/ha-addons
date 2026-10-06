@@ -1,6 +1,6 @@
 {
   "name": "@eoasmxd/freya-plugin-tool-homeassistant",
-  "version": "0.6.5",
+  "version": "0.7.1",
   "private": true,
   "license": "MIT",
   "description": "Freya Home Assistant interaction and control toolbox plugin",
@@ -26,7 +26,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@eoasmxd/freya-sdk": "^0.6.5"
+    "@eoasmxd/freya-sdk": "^0.7.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
