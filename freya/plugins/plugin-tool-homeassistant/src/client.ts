@@ -75,6 +75,57 @@ export class HomeAssistantClient {
     return this.registryCache.get(entityId);
   }
 
+  async sendDiscovery(service = 'freya', configData?: Record<string, any>): Promise<boolean> {
+    if (!this.config.token) {
+      return false;
+    }
+
+    try {
+      const supervisorUrl = this.config.baseUrl.replace(/\/core\/api$/, '');
+      let host = 'freya';
+      let port = 3000;
+
+      try {
+        const selfInfoRes = await fetch(`${supervisorUrl}/addons/self/info`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${this.config.token}`,
+            'Content-Type': 'application/json'
+          },
+          signal: AbortSignal.timeout(3_000)
+        });
+        if (selfInfoRes.ok) {
+          const selfInfo = await selfInfoRes.json();
+          if (selfInfo?.data?.hostname) {
+            host = selfInfo.data.hostname;
+          }
+          if (selfInfo?.data?.ingress_port) {
+            port = selfInfo.data.ingress_port;
+          }
+        }
+      } catch { }
+
+      const response = await fetch(`${supervisorUrl}/discovery`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${this.config.token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          service,
+          config: configData || {
+            host,
+            port
+          }
+        }),
+        signal: AbortSignal.timeout(5_000)
+      });
+      return response.ok;
+    } catch {
+      return false;
+    }
+  }
+
   private async fetchExposedViaWebSocket(): Promise<Set<string>> {
     if (this.syncPromise) {
       return this.syncPromise;

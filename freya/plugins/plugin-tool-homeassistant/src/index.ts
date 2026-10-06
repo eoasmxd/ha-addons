@@ -27,6 +27,7 @@ export default class HomeAssistantPlugin implements ToolPlugin {
   async setup(ctx: FreyaContext): Promise<void> {
     this.security.setContext(ctx);
     this.client.startBackgroundSync(60_000);
+    this.client.sendDiscovery().catch(() => { });
   }
 
   async stop(ctx: FreyaContext): Promise<void> {
