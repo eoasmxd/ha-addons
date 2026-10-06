@@ -17,7 +17,7 @@ ENV NODE_ENV=production \
     FREYA_HOME=/config/freya \
     FREYA_LAUNCH=/app
 
-RUN npm install -g @eoasmxd/freya@0.6.5 --no-audit --no-fund
+RUN npm install -g @eoasmxd/freya@0.7.1 --no-audit --no-fund
 
 COPY --from=builder /build/plugin-tool-homeassistant/package.json /app/plugins/plugin-tool-homeassistant/
 COPY --from=builder /build/plugin-tool-homeassistant/schema.json /app/plugins/plugin-tool-homeassistant/
@@ -26,4 +26,4 @@ COPY --from=builder /build/plugin-tool-homeassistant/config /app/plugins/plugin-
 
 EXPOSE 3000
 
-CMD ["freya", "--no-cli", "--foreground", "--port", "3000"]
+CMD ["freya", "--no-cli", "--foreground", "--no-auth", "--port", "3000"]

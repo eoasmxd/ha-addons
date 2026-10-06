@@ -1,4 +1,4 @@
-import type { HAEntityState, HAServiceDomain, HomeAssistantClientConfig } from './types.js';
+import type { HAEntityRegistryEntry, HAEntityState, HAServiceDomain, HomeAssistantClientConfig } from './types.js';
 
 /**
  * Home Assistant REST 与 WebSocket 通信客户端
@@ -8,6 +8,7 @@ export class HomeAssistantClient {
   private readonly config: HomeAssistantClientConfig;
   private readonly cacheTtlMs: number;
   private exposedCache = new Set<string>();
+  private registryCache = new Map<string, HAEntityRegistryEntry>();
   private lastSyncTime = 0;
   private syncPromise: Promise<Set<string>> | null = null;
   private syncTimer: NodeJS.Timeout | null = null;
@@ -64,6 +65,67 @@ export class HomeAssistantClient {
     return this.fetchExposedViaWebSocket();
   }
 
+  async getRegistryEntries(): Promise<Map<string, HAEntityRegistryEntry>> {
+    await this.getExposedEntities();
+    return this.registryCache;
+  }
+
+  async getRegistryEntry(entityId: string): Promise<HAEntityRegistryEntry | undefined> {
+    await this.getExposedEntities();
+    return this.registryCache.get(entityId);
+  }
+
+  async sendDiscovery(service = 'freya', configData?: Record<string, any>): Promise<boolean> {
+    if (!this.config.token) {
+      return false;
+    }
+
+    try {
+      const supervisorUrl = this.config.baseUrl.replace(/\/core\/api$/, '');
+      let host = 'freya';
+      let port = 3000;
+
+      try {
+        const selfInfoRes = await fetch(`${supervisorUrl}/addons/self/info`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${this.config.token}`,
+            'Content-Type': 'application/json'
+          },
+          signal: AbortSignal.timeout(3_000)
+        });
+        if (selfInfoRes.ok) {
+          const selfInfo = await selfInfoRes.json();
+          if (selfInfo?.data?.hostname) {
+            host = selfInfo.data.hostname;
+          }
+          if (selfInfo?.data?.ingress_port) {
+            port = selfInfo.data.ingress_port;
+          }
+        }
+      } catch { }
+
+      const response = await fetch(`${supervisorUrl}/discovery`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${this.config.token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          service,
+          config: configData || {
+            host,
+            port
+          }
+        }),
+        signal: AbortSignal.timeout(5_000)
+      });
+      return response.ok;
+    } catch {
+      return false;
+    }
+  }
+
   private async fetchExposedViaWebSocket(): Promise<Set<string>> {
     if (this.syncPromise) {
       return this.syncPromise;
@@ -71,12 +133,14 @@ export class HomeAssistantClient {
 
     this.syncPromise = new Promise<Set<string>>((resolve, reject) => {
       if (!this.config.token) {
-        // 未检测到 SUPERVISOR_TOKEN 或 HA_TOKEN 凭据
         return reject(new Error('SUPERVISOR_TOKEN or HA_TOKEN credential not found.'));
       }
 
       const socket = new WebSocket(this.config.wsUrl);
       let messageId = 1;
+      let exposeRequestId = -1;
+      let entriesRequestId = -1;
+      let currentExposed = new Set<string>();
       let completed = false;
 
       const finish = (err?: Error, result?: Set<string>) => {
@@ -96,7 +160,6 @@ export class HomeAssistantClient {
       };
 
       const timer = setTimeout(() => {
-        // 连接 Home Assistant WebSocket 超时
         finish(new Error('Home Assistant WebSocket connection timeout.'));
       }, 10_000);
 
@@ -114,42 +177,86 @@ export class HomeAssistantClient {
           }
 
           if (data.type === 'auth_ok') {
+            exposeRequestId = messageId++;
             socket.send(JSON.stringify({
-              id: messageId++,
+              id: exposeRequestId,
               type: 'homeassistant/expose_entity/list'
             }));
             return;
           }
 
           if (data.type === 'auth_invalid') {
-            // WebSocket 鉴权失败
             finish(new Error(`WebSocket authentication failed: ${data.message || 'Invalid token'}`));
             return;
           }
 
           if (data.type === 'result') {
-            if (!data.success) {
-              // 获取暴露实体列表失败
-              finish(new Error(`Failed to get exposed entities: ${data.error?.message || 'Unknown error'}`));
+            if (data.id === exposeRequestId) {
+              if (!data.success) {
+                finish(new Error(`Failed to get exposed entities: ${data.error?.message || 'Unknown error'}`));
+                return;
+              }
+
+              const exposed = new Set<string>();
+              const rawResult = data.result?.exposed_entities || data.result || {};
+
+              for (const [entityId, assistantMap] of Object.entries(rawResult)) {
+                if (assistantMap && typeof assistantMap === 'object') {
+                  const conv = (assistantMap as any)?.conversation;
+                  if (conv === true || conv?.should_expose === true) {
+                    exposed.add(entityId);
+                  }
+                }
+              }
+
+              currentExposed = exposed;
+
+              if (exposed.size === 0) {
+                this.exposedCache = exposed;
+                this.registryCache.clear();
+                this.lastSyncTime = Date.now();
+                finish(undefined, exposed);
+                return;
+              }
+
+              entriesRequestId = messageId++;
+              socket.send(JSON.stringify({
+                id: entriesRequestId,
+                type: 'config/entity_registry/get_entries',
+                entity_ids: Array.from(exposed)
+              }));
               return;
             }
 
-            const exposed = new Set<string>();
-            const rawResult = data.result?.exposed_entities || data.result || {};
+            if (data.id === entriesRequestId) {
+              if (data.success && data.result) {
+                const newRegistryCache = new Map<string, HAEntityRegistryEntry>();
+                const resultData = data.result;
 
-            for (const [entityId, assistantMap] of Object.entries(rawResult)) {
-              if (assistantMap && typeof assistantMap === 'object') {
-                const conv = (assistantMap as any)?.conversation;
-                if (conv === true || conv?.should_expose === true) {
-                  exposed.add(entityId);
+                if (Array.isArray(resultData)) {
+                  for (const item of resultData) {
+                    if (item?.entity_id) {
+                      newRegistryCache.set(item.entity_id, item);
+                    }
+                  }
+                } else if (typeof resultData === 'object') {
+                  for (const [key, item] of Object.entries(resultData)) {
+                    const entry = item as HAEntityRegistryEntry;
+                    const entityId = entry?.entity_id || key;
+                    if (entityId) {
+                      newRegistryCache.set(entityId, { ...entry, entity_id: entityId });
+                    }
+                  }
                 }
-              }
-            }
 
-            this.exposedCache = exposed;
-            this.lastSyncTime = Date.now();
-            finish(undefined, exposed);
-            return;
+                this.registryCache = newRegistryCache;
+              }
+
+              this.exposedCache = currentExposed;
+              this.lastSyncTime = Date.now();
+              finish(undefined, currentExposed);
+              return;
+            }
           }
         } catch (err: any) {
           finish(err instanceof Error ? err : new Error(String(err)));
@@ -157,12 +264,10 @@ export class HomeAssistantClient {
       };
 
       socket.onerror = (err: any) => {
-        // WebSocket 通信异常
         finish(err instanceof Error ? err : new Error('WebSocket communication error.'));
       };
 
       socket.onclose = () => {
-        // WebSocket 连接已关闭
         finish(new Error('WebSocket connection closed.'));
       };
     }).finally(() => {
@@ -185,7 +290,6 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      // 查询实体状态失败
       throw new Error(`Failed to query states [${response.status}]: ${errText || response.statusText}`);
     }
 
@@ -205,7 +309,6 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      // 查询实体状态失败
       throw new Error(`Failed to query state for entity "${entityId}" [${response.status}]: ${errText || response.statusText}`);
     }
 
@@ -226,7 +329,6 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      // 调用服务失败
       throw new Error(`Failed to call service "${domain}.${service}" [${response.status}]: ${errText || response.statusText}`);
     }
 
@@ -246,7 +348,6 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      // 查询服务列表失败
       throw new Error(`Failed to query services [${response.status}]: ${errText || response.statusText}`);
     }
 
@@ -282,7 +383,6 @@ export class HomeAssistantClient {
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      // 查询实体历史记录失败
       throw new Error(`Failed to query history for entity "${entityId}" [${response.status}]: ${errText || response.statusText}`);
     }
 

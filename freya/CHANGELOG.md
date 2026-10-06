@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.1
+
+- Upgrade Freya to `0.7.1`.
+- Support Home Assistant Conversation agent (for Assist) and freya.chat service.
+- Add Webhook event channel and WeCom message push tools.
+- Optimize WebSocket connection and session management.
+
+- 升级 Freya 至 `0.7.1`。
+- 支持接入 Home Assistant 对话代理（适配 Assist 语音），并提供供自动化调用的 freya.chat 服务。
+- 新增 Webhook 事件通道与企业微信推送工具。
+- 优化 WebSocket 连接与会话管理。
+
 ## 0.6.5
 
 - Upgrade Freya to `0.6.5`.

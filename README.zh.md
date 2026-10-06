@@ -33,7 +33,7 @@ Home Assistant 应用（Add-ons）仓库。
    ```text
    https://github.com/eoasmxd/ha-addons
    ```
-5. 刷新商店页面，即可在列表中看到 **eoasMXD** 及其下的应用。
+5. 刷新商店页面，即可在列表中看到 **eoasMXD App Hub** 及其下的应用。
 
 ---
 
