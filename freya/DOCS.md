@@ -1,5 +1,3 @@
-## English
-
 A lightweight AI agent system based on a microkernel architecture with built-in Web interaction and automation channels.
 
 ### Quick Start
@@ -35,8 +33,6 @@ This add-on features a built-in smart interaction toolbox dedicated to Home Assi
 - **Device Control Switch**: Defaults to **Safe Read-Only Mode** (querying entity states only). To allow the agent to perform actions such as turning on/off switches and lights, enable the **"Allow agent to call device control services"** switch in the Freya Web UI under **Settings ⚙️ -> Global Config -> "Plugin Config: tool-homeassistant"** (takes effect dynamically without restarting the add-on).
 
 ---
-
-## 简体中文
 
 基于微内核架构的轻量级智能体系统，内置 Web 交互与自动化通道。
 

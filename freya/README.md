@@ -7,8 +7,6 @@ A lightweight AI agent system based on a microkernel architecture with native Ho
 
 ---
 
-## English
-
 ### About
 
 **Freya** is a lightweight, architecturally clear, and production-ready microkernel AI Agent system. Designed for smart interaction and agent development, it eliminates heavy container sandboxes and complex distributed RPCs in favor of a clean, monolithic microkernel—fully preserving modular plugin extensions, event-driven decoupling, and multi-channel interaction.
@@ -27,8 +25,6 @@ A lightweight AI agent system based on a microkernel architecture with native Ho
 > 🔗 Repositories: [Freya Core](https://github.com/eoasmxd/freya) | [HA Integration](https://github.com/eoasmxd/ha-integration-freya)
 
 ---
-
-## 简体中文
 
 ### 关于
 
