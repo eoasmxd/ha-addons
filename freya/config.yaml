@@ -21,3 +21,6 @@ map:
 
 homeassistant_api: true
 
+discovery:
+  - freya
+
