@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.7.2
+
+- Upgrade Freya to `0.7.2`.
+- Built-in Home Assistant custom integration with automatic deployment (`custom_components/freya`) to enable bidirectional interaction.
+- Support integration version detection and automatic persistent restart notifications.
+
+- 升级 Freya 至 `0.7.2`。
+- 内置 Home Assistant 官方集成并支持自动部署至 `custom_components/freya`，实现开箱即用的深度双向互动。
+- 支持集成版本自动探测与持久化重启提示通知。
+
 ## 0.7.1
 
 - Upgrade Freya to `0.7.1`.
