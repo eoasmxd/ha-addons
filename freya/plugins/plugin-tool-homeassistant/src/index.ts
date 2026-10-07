@@ -27,7 +27,13 @@ export default class HomeAssistantPlugin implements ToolPlugin {
   async setup(ctx: FreyaContext): Promise<void> {
     this.security.setContext(ctx);
     this.client.startBackgroundSync(60_000);
-    this.client.sendDiscovery().catch(() => { });
+    this.client.sendDiscovery().then((ok) => {
+      if (ok) {
+        ctx.logger.info('[HomeAssistantPlugin] Sent discovery message to Supervisor successfully.');
+      }
+    }).catch((err) => {
+      ctx.logger.warn(`[HomeAssistantPlugin] Failed to send discovery message: ${err}`);
+    });
   }
 
   async stop(ctx: FreyaContext): Promise<void> {

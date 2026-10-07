@@ -120,6 +120,9 @@ export class HomeAssistantClient {
         }),
         signal: AbortSignal.timeout(5_000)
       });
+      if (!response.ok) {
+        console.warn(`[HomeAssistantClient] Supervisor discovery rejected with HTTP ${response.status}: ${response.statusText}`);
+      }
       return response.ok;
     } catch {
       return false;
