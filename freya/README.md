@@ -20,11 +20,11 @@ A lightweight AI agent system based on a microkernel architecture with native Ho
 - 🔌 **Microkernel Architecture**: LLM providers, tools, and communication channels are decoupled via standard contracts with hot-reload support, keeping the core runtime lightweight.
 - ⚡ **Event-Driven Decoupling**: High-concurrency, low-coupling streaming communication and telemetry via internal event bus.
 - 📝 **Zero Hardcoded Prompts**: System identities, constraints, and plugin prompts are strictly separated into physical Markdown files, supporting dynamic cascading probes and disk overrides.
-- 🏠 **Native Home Assistant Integration**: Seamlessly integrates with entities exposed to Assist, supporting status queries and secure switch/device control.
+- 🏠 **Bidirectional Home Assistant Integration**: Seamlessly queries and controls Assist-exposed entities; automatically deploys the official custom integration with auto-discovery support for Assist conversation agent and `freya.chat` action.
 
 ---
 
-> 🔗 Project repository: [eoasmxd/freya](https://github.com/eoasmxd/freya)
+> 🔗 Repositories: [Freya Core](https://github.com/eoasmxd/freya) | [HA Integration](https://github.com/eoasmxd/ha-integration-freya)
 
 ---
 
@@ -41,8 +41,8 @@ A lightweight AI agent system based on a microkernel architecture with native Ho
 - 🔌 **极致插件化 (Microkernel)**：大模型提供商、系统工具与通信频道基于标准接口外置解耦，支持即时热加载，底座极致轻量。
 - ⚡ **事件驱动解耦 (Event-Driven)**：底座与插件之间采用事件总线进行高并发、低耦合的流式通信与调用追踪。
 - 📝 **零硬编码提示词 (Zero-Hardcoded)**：系统人设与提示词物理脱离源码，通过三层级联探针与语言回退机制实现动态热更与用户落盘覆盖。
-- 🏠 **原生 Home Assistant 深度打通**：无缝对接 Assist 暴露的实体状态感知与设备安全控制。
+- 🏠 **原生 Home Assistant 深度双向打通**：无缝对接 Assist 暴露的实体状态感知与设备安全控制；自动部署官方集成，支持自动发现与一键添加为 Assist 对话代理及 `freya.chat` 自动化动作。
 
 ---
 
-> 🔗 项目仓库：[eoasmxd/freya](https://github.com/eoasmxd/freya)
+> 🔗 项目仓库：[Freya 核心](https://github.com/eoasmxd/freya) | [HA 官方集成](https://github.com/eoasmxd/ha-integration-freya)
