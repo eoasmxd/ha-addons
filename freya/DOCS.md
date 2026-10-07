@@ -13,6 +13,11 @@ A lightweight AI agent system based on a microkernel architecture with built-in 
    - Select the added provider, click **Add Model**: enter the Model ID (e.g. `gemini-3.5-flash-lite`, `deepseek-v4-flash`, or `gpt-4o-mini`).
    - Go to **Global Config -> Category: "Models"**: under **Default Model Fallback Chain**, select the model and click **Bind**.
    - **Click the "Save Configuration" button** in the bottom-right corner to apply.
+5. **Home Assistant Integration Setup (Assist & Automations)**:
+   - On first launch, the add-on automatically deploys the official custom integration to `/config/custom_components/freya`.
+   - Follow the persistent notification prompt to **restart Home Assistant**.
+   - After restarting, navigate to **Settings -> Devices & Services** and click **Configure** on the discovered **Freya** integration (or click **Add Integration** and search for `Freya`).
+   - Once added, select Freya in **Settings -> Voice assistants** as your Assist conversation agent, or call the `freya.chat` action in automations.
 
 ### Data Persistence
 
@@ -46,6 +51,11 @@ This add-on features a built-in smart interaction toolbox dedicated to Home Assi
    - 选中刚添加的提供商，点击 **添加模型**：填入模型 ID（如 `gemini-3.5-flash-lite`、`deepseek-v4-flash`、`gpt-4o-mini`）。
    - 切换到 **全局配置 -> 分类：“模型”**：在 **“默认模型降级链列表”** 下拉框中选中该模型，点击 **绑定**。
    - **点击右下角的【保存配置】按钮**即可生效并开始对话。
+5. **集成添加与 Assist 接入（按需选做）**：
+   - 应用启动时会自动将官方集成部署至 `/config/custom_components/freya`。
+   - 按通知提示**重启 Home Assistant**。
+   - 重启完成后进入 **设置 -> 设备与集成**，点击自动弹出的 **Freya** 进行配置确认（或点击右下角 **添加集成** 搜索 `Freya`）。
+   - 添加成功后，即可在 **设置 -> 语音助手** 中将 Freya 选为 Assist 对话代理，或在自动化中直接调用 `freya.chat` 动作。
 
 ### 数据持久化
 
