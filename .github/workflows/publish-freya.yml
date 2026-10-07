@@ -1,11 +1,6 @@
 name: Publish Freya Add-on
 
 on:
-  push:
-    tags:
-      - 'v*'
-    paths:
-      - 'freya/**'
   workflow_dispatch:
 
 jobs:
