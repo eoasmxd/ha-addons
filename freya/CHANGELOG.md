@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.8.1
+
+- Upgrade Freya to `0.8.1`.
+- Add device control permission levels: configure standard, high-risk (locks/valves), or system permissions as needed.
+- Support automation control: agents can now trigger and manage automations.
+- Enhance security checks and improve tool reliability.
+
+- 升级 Freya 至 `0.8.1`。
+- 新增设备控制权限分级设置，支持按需开放常规控制、高危设备（门锁/阀门）及系统管理权限。
+- 支持自动化控制，智能体现可直接触发或管理自动化规则。
+- 强化安全拦截机制，提升智能体交互与设备调用的稳定性。
+
 ## 0.7.2
 
 - Upgrade Freya to `0.7.2`.

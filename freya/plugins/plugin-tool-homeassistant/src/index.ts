@@ -7,10 +7,10 @@ import en from './i18n/locales/en.js';
 import zh from './i18n/locales/zh.js';
 import {
   HomeAssistantCallServiceTool,
-  HomeAssistantGetHistoryTool,
-  HomeAssistantGetStateTool,
-  HomeAssistantListEntitiesTool,
-  HomeAssistantListServicesTool
+  HomeAssistantListEntityTool,
+  HomeAssistantListServiceTool,
+  HomeAssistantReadHistoryTool,
+  HomeAssistantReadStateTool
 } from './tools.js';
 
 /**
@@ -24,10 +24,10 @@ export default class HomeAssistantPlugin implements ToolPlugin {
   private readonly client = new HomeAssistantClient();
   private readonly security = new HomeAssistantSecurityGateway();
   private readonly deployer = new HomeAssistantIntegrationDeployer(this.client, this.i18n);
-  private readonly listTool = new HomeAssistantListEntitiesTool(this.client, this.security);
-  private readonly getStateTool = new HomeAssistantGetStateTool(this.client, this.security);
-  private readonly getHistoryTool = new HomeAssistantGetHistoryTool(this.client, this.security);
-  private readonly listServicesTool = new HomeAssistantListServicesTool(this.client);
+  private readonly listTool = new HomeAssistantListEntityTool(this.client, this.security);
+  private readonly getStateTool = new HomeAssistantReadStateTool(this.client, this.security);
+  private readonly getHistoryTool = new HomeAssistantReadHistoryTool(this.client, this.security);
+  private readonly listServicesTool = new HomeAssistantListServiceTool(this.client, this.security);
   private readonly callServiceTool = new HomeAssistantCallServiceTool(this.client, this.security);
 
   async setup(ctx: FreyaContext): Promise<void> {
