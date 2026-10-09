@@ -8,5 +8,39 @@
     },
     "type": "boolean",
     "manualOnly": true
+  },
+  {
+    "key": "homeassistant.controlLevel",
+    "defaultValue": "standard",
+    "description": {
+      "zh": "设备控制权限等级 (需开启 allowControl): 常规(家电与自动化), 高危(含门锁/阀门/警报器), 系统(最高权限，涵盖全部控制及系统运维)",
+      "en": "Control permission level (requires allowControl): standard (appliances/automations), high_risk (locks/valves/sirens), system (highest privilege, includes all controls & system administration)"
+    },
+    "type": "string",
+    "uiHint": "select",
+    "enumValues": [
+      {
+        "value": "standard",
+        "label": {
+          "zh": "常规控制 (家电与场景)",
+          "en": "Standard (Appliances & Scenes)"
+        }
+      },
+      {
+        "value": "high_risk",
+        "label": {
+          "zh": "高危控制 (含门锁/阀门/警报)",
+          "en": "High Risk (Locks, Valves, Sirens)"
+        }
+      },
+      {
+        "value": "system",
+        "label": {
+          "zh": "系统管理 (最高权限/完全访问)",
+          "en": "System (Highest / Full Access)"
+        }
+      }
+    ],
+    "manualOnly": true
   }
 ]

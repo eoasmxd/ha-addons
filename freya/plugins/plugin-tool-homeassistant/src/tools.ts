@@ -6,7 +6,7 @@ import type { HomeAssistantSecurityGateway } from './security.js';
  * Home Assistant 实体列表查询工具
  * Home Assistant entity list query tool
  */
-export class HomeAssistantListEntitiesTool implements FreyaTool {
+export class HomeAssistantListEntityTool implements FreyaTool {
   constructor(
     private readonly client: HomeAssistantClient,
     private readonly security: HomeAssistantSecurityGateway
@@ -14,7 +14,7 @@ export class HomeAssistantListEntitiesTool implements FreyaTool {
 
   getDefinition(): ToolDefinition {
     return {
-      name: 'homeassistant_list_entities',
+      name: 'homeassistant_list_entity',
       description: 'List devices and entities in Home Assistant (supports filtering by domain or keyword).',
       parameters: {
         type: 'object',
@@ -95,7 +95,7 @@ export class HomeAssistantListEntitiesTool implements FreyaTool {
  * Home Assistant 单实体状态查询工具
  * Home Assistant single entity state query tool
  */
-export class HomeAssistantGetStateTool implements FreyaTool {
+export class HomeAssistantReadStateTool implements FreyaTool {
   constructor(
     private readonly client: HomeAssistantClient,
     private readonly security: HomeAssistantSecurityGateway
@@ -103,25 +103,25 @@ export class HomeAssistantGetStateTool implements FreyaTool {
 
   getDefinition(): ToolDefinition {
     return {
-      name: 'homeassistant_get_state',
+      name: 'homeassistant_read_state',
       description: 'Get real-time state and detailed attributes for a specified entity in Home Assistant.',
       parameters: {
         type: 'object',
         properties: {
-          entity_id: {
+          entityId: {
             type: 'string',
             description: 'Unique entity ID, e.g. "sensor.living_room_temperature" or "light.kitchen_light".'
           }
         },
-        required: ['entity_id']
+        required: ['entityId']
       }
     };
   }
 
   async execute(args: Record<string, any>): Promise<string> {
-    const entityId = String(args.entity_id || '').trim();
+    const entityId = String(args.entityId ?? args.entity_id ?? '').trim();
     if (!entityId) {
-      return 'Error: entity_id is required.';
+      return 'Error: entityId is required.';
     }
 
     const exposedSet = await this.client.getExposedEntities();
@@ -158,7 +158,7 @@ export class HomeAssistantCallServiceTool implements FreyaTool {
   getDefinition(): ToolDefinition {
     return {
       name: 'homeassistant_call_service',
-      description: 'Call Home Assistant device control services (e.g. turn on/off lights, toggle switches, set temperature, etc.).',
+      description: 'Call Home Assistant device control services (e.g. turn on/off lights, toggle switches, set temperature, etc.). Batch control by area_id, device_id, floor_id, or label_id is strictly forbidden. You must explicitly target a specific exposed entityId.',
       parameters: {
         type: 'object',
         properties: {
@@ -170,16 +170,16 @@ export class HomeAssistantCallServiceTool implements FreyaTool {
             type: 'string',
             description: 'Service name, e.g. "turn_on", "turn_off", "toggle", etc.'
           },
-          entity_id: {
+          entityId: {
             type: 'string',
-            description: 'Target entity unique identifier ID, e.g. "light.living_room".'
+            description: 'Target entity unique identifier ID, e.g. "light.living_room". Required for device control.'
           },
-          service_data: {
+          serviceData: {
             type: 'object',
-            description: 'Optional additional service parameters, such as brightness, color, target temperature, etc.'
+            description: 'Optional additional service parameters, such as brightness, color, target temperature, etc. Forbidden keys: area_id, device_id, floor_id, label_id.'
           }
         },
-        required: ['domain', 'service', 'entity_id']
+        required: ['domain', 'service', 'entityId']
       }
     };
   }
@@ -187,8 +187,10 @@ export class HomeAssistantCallServiceTool implements FreyaTool {
   async execute(args: Record<string, any>): Promise<string> {
     const domain = String(args.domain || '').trim();
     const service = String(args.service || '').trim();
-    const entityId = args.entity_id ? String(args.entity_id).trim() : undefined;
-    const extraData = (args.service_data && typeof args.service_data === 'object') ? args.service_data : {};
+    const rawEntityId = args.entityId ?? args.entity_id;
+    const entityId = rawEntityId ? String(rawEntityId).trim() : undefined;
+    const rawData = args.serviceData ?? args.service_data;
+    const extraData = (rawData && typeof rawData === 'object') ? rawData : {};
 
     const exposedSet = await this.client.getExposedEntities();
     this.security.assertCanCallService(domain, service, entityId, extraData, exposedSet);
@@ -208,12 +210,15 @@ export class HomeAssistantCallServiceTool implements FreyaTool {
  * Home Assistant 可用服务定义与参数查询工具
  * Home Assistant available service definition and parameter query tool
  */
-export class HomeAssistantListServicesTool implements FreyaTool {
-  constructor(private readonly client: HomeAssistantClient) { }
+export class HomeAssistantListServiceTool implements FreyaTool {
+  constructor(
+    private readonly client: HomeAssistantClient,
+    private readonly security: HomeAssistantSecurityGateway
+  ) { }
 
   getDefinition(): ToolDefinition {
     return {
-      name: 'homeassistant_list_services',
+      name: 'homeassistant_list_service',
       description: 'Query supported services in Home Assistant and parameter definitions for each service (can filter by domain, e.g. "light", "switch", "climate", etc.).',
       parameters: {
         type: 'object',
@@ -232,6 +237,10 @@ export class HomeAssistantListServicesTool implements FreyaTool {
     const domainFilter = typeof args.domain === 'string' ? args.domain.trim().toLowerCase() : '';
 
     if (domainFilter) {
+      if (!this.security.isDomainAllowed(domainFilter)) {
+        return `Domain "${domainFilter}" is not in the allowed services whitelist under the current security policy.`;
+      }
+
       const matched = allServices.find((item) => item.domain.toLowerCase() === domainFilter);
       if (!matched || !matched.services) {
         return `No services found for domain "${domainFilter}".`;
@@ -254,7 +263,10 @@ export class HomeAssistantListServicesTool implements FreyaTool {
       return lines.join('\n');
     }
 
-    const domainNames = allServices.map((item) => item.domain).sort();
+    const domainNames = allServices
+      .filter((item) => this.security.isDomainAllowed(item.domain))
+      .map((item) => item.domain)
+      .sort();
     return `Currently supported ${domainNames.length} service domains (to inspect detailed services and parameters for a domain, provide the domain argument):\n${domainNames.join(', ')}`;
   }
 }
@@ -263,7 +275,7 @@ export class HomeAssistantListServicesTool implements FreyaTool {
  * Home Assistant 实体历史状态查询工具
  * Home Assistant entity state history query tool
  */
-export class HomeAssistantGetHistoryTool implements FreyaTool {
+export class HomeAssistantReadHistoryTool implements FreyaTool {
   constructor(
     private readonly client: HomeAssistantClient,
     private readonly security: HomeAssistantSecurityGateway
@@ -271,33 +283,33 @@ export class HomeAssistantGetHistoryTool implements FreyaTool {
 
   getDefinition(): ToolDefinition {
     return {
-      name: 'homeassistant_get_history',
+      name: 'homeassistant_read_history',
       description: 'Query historical state change records for a single entity in Home Assistant.',
       parameters: {
         type: 'object',
         properties: {
-          entity_id: {
+          entityId: {
             type: 'string',
             description: 'Single entity ID (e.g. "sensor.living_room_temperature"). Only one entity is allowed per query.'
           },
-          start_time: {
+          startTime: {
             type: 'string',
             description: 'Optional start timestamp in ISO 8601 format (e.g. "2023-01-01T00:00:00Z"). Defaults to 24 hours ago.'
           },
-          end_time: {
+          endTime: {
             type: 'string',
             description: 'Optional end timestamp in ISO 8601 format (e.g. "2023-01-01T23:59:59Z").'
           }
         },
-        required: ['entity_id']
+        required: ['entityId']
       }
     };
   }
 
   async execute(args: Record<string, any>): Promise<string> {
-    const entityId = String(args.entity_id || '').trim();
+    const entityId = String(args.entityId ?? args.entity_id ?? '').trim();
     if (!entityId) {
-      return 'Error: entity_id is required.';
+      return 'Error: entityId is required.';
     }
 
     if (entityId.includes(',') || entityId.includes(' ') || entityId.includes(';')) {
@@ -307,9 +319,11 @@ export class HomeAssistantGetHistoryTool implements FreyaTool {
     const exposedSet = await this.client.getExposedEntities();
     this.security.assertEntityExposed(entityId, exposedSet);
 
+    const rawStartTime = args.startTime ?? args.start_time;
+    const rawEndTime = args.endTime ?? args.end_time;
     const history = await this.client.getHistory(entityId, {
-      startTime: typeof args.start_time === 'string' ? args.start_time.trim() : undefined,
-      endTime: typeof args.end_time === 'string' ? args.end_time.trim() : undefined
+      startTime: typeof rawStartTime === 'string' ? rawStartTime.trim() : undefined,
+      endTime: typeof rawEndTime === 'string' ? rawEndTime.trim() : undefined
     });
 
     if (history.length === 0) {
