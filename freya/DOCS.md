@@ -17,6 +17,14 @@ A lightweight AI agent system based on a microkernel architecture with built-in 
    - After restarting, navigate to **Settings -> Devices & Services** and click **Configure** on the discovered **Freya** integration (or click **Add Integration** and search for `Freya`).
    - Once added, select Freya in **Settings -> Voice assistants** as your Assist conversation agent, or call the `freya.chat` action in automations.
 
+### Telegram Integration (Optional)
+
+1. Enable the **Telegram Channel Plugin** in the **Plugins** tab.
+2. Get a Bot Token from `@BotFather` on Telegram.
+3. In Freya's chat box, simply type: *"Help me setup Telegram with token: YOUR_TOKEN"*.
+
+> **💡 Pro Tip**: For any advanced configurations or more usage tips, **just ask Freya directly in the chat**. She knows it all!
+
 ### Data Persistence
 
 All data and configurations are persistently stored in **`/config/freya/`**:
@@ -52,6 +60,14 @@ This add-on features a built-in smart interaction toolbox dedicated to Home Assi
    - 按通知提示**重启 Home Assistant**。
    - 重启完成后进入 **设置 -> 设备与集成**，点击自动弹出的 **Freya** 进行配置确认（或点击右下角 **添加集成** 搜索 `Freya`）。
    - 添加成功后，即可在 **设置 -> 语音助手** 中将 Freya 选为 Assist 对话代理，或在自动化中直接调用 `freya.chat` 动作。
+
+### 微信接入（按需选做）
+
+1. 在右上角 **设置 ⚙️ -> 插件配置** 中开启 **微信频道插件**。
+2. 无需任何网页配置，直接在对话框中输入并发送：`/weixin login my_bot`
+3. 系统会弹出一个二维码，使用手机微信扫码即可上线。
+
+> **💡 智能助手提示**：遇到任何问题、想了解更多使用技巧或高级配置，**请直接在对话中问 Freya**，她什么都懂！
 
 ### 数据持久化
 

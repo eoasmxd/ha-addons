@@ -13,8 +13,8 @@
     "key": "homeassistant.controlLevel",
     "defaultValue": "standard",
     "description": {
-      "zh": "设备控制权限等级 (需开启 allowControl): 常规(家电与自动化), 高危(含门锁/阀门/警报器), 系统(最高权限，涵盖全部控制及系统运维)",
-      "en": "Control permission level (requires allowControl): standard (appliances/automations), high_risk (locks/valves/sirens), system (highest privilege, includes all controls & system administration)"
+      "zh": "设备控制权限等级 (需开启 allowControl)。提升权限级别会增加安全风险，请遵循最小权限原则，仅在必要时开放。",
+      "en": "Control permission level (requires allowControl). Elevating privileges increases security risks. Follow the principle of least privilege."
     },
     "type": "string",
     "uiHint": "select",
