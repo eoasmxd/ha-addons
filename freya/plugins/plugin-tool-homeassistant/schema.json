@@ -13,8 +13,8 @@
     "key": "homeassistant.controlLevel",
     "defaultValue": "standard",
     "description": {
-      "zh": "设备控制权限等级 (需开启 allowControl)。提升权限级别会增加安全风险，请遵循最小权限原则，仅在必要时开放。",
-      "en": "Control permission level (requires allowControl). Elevating privileges increases security risks. Follow the principle of least privilege."
+      "zh": "设备控制权限等级 (需先开启上方设备控制)。提升权限级别会增加安全风险，请遵循最小权限原则，仅在必要时开放。",
+      "en": "Control permission level (requires enabling device control above). Elevating privileges increases security risks. Follow the principle of least privilege."
     },
     "type": "string",
     "uiHint": "select",

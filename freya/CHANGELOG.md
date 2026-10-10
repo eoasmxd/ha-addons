@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.2
+
+- Upgrade Freya to `0.8.2`.
+- Support conversation attachments: allow passing web URLs and local files with automatic workspace caching and sharing.
+
+- 升级 Freya 至 `0.8.2`。
+- 支持对话附件传递：支持公网 URL 与本地文件路径，支持工作区缓存与自动共享。
+
 ## 0.8.1
 
 - Upgrade Freya to `0.8.1`.
