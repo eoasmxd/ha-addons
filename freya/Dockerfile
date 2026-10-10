@@ -24,7 +24,7 @@ ENV NODE_ENV=production \
     FREYA_HOME=/config/freya \
     FREYA_LAUNCH=/app
 
-RUN npm install -g @eoasmxd/freya@0.8.1 --no-audit --no-fund
+RUN npm install -g @eoasmxd/freya@0.8.2 --no-audit --no-fund
 
 COPY --from=builder /build/plugin-tool-homeassistant/package.json /app/plugins/plugin-tool-homeassistant/
 COPY --from=builder /build/plugin-tool-homeassistant/schema.json /app/plugins/plugin-tool-homeassistant/
