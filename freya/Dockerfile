@@ -23,7 +23,7 @@ ENV NODE_ENV=production \
 RUN npm install -g @eoasmxd/freya@${FREYA_VERSION} --no-audit --no-fund
 
 COPY --from=builder /build/integration/freya /app/integration/custom_components/freya/
-COPY config/schema.json /app/config/schema.json
+COPY config/ /app/config/
 
 EXPOSE 3000
 

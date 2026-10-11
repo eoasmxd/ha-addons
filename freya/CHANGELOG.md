@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.1
+
+- Upgrade Freya to `0.9.1`.
+- Add built-in Home Assistant integration and usage guide skill.
+
+- 升级 Freya 至 `0.9.1`。
+- 新增内置 Home Assistant 官方集成与智能家居使用指南技能（Skill）。
+
 ## 0.8.2
 
 - Upgrade Freya to `0.8.2`.
