@@ -1,0 +1,39 @@
+[
+  {
+    "key": "cli.enabled",
+    "hidden": true,
+    "readonly": true,
+    "defaultValue": false
+  },
+  {
+    "key": "server.enabled",
+    "hidden": true,
+    "readonly": true,
+    "defaultValue": true
+  },
+  {
+    "key": "server.port",
+    "hidden": true,
+    "readonly": true,
+    "defaultValue": 3000
+  },
+  {
+    "key": "server.auth.enabled",
+    "hidden": true,
+    "readonly": true,
+    "defaultValue": false
+  },
+  {
+    "key": "server.auth.password",
+    "hidden": true,
+    "readonly": true
+  },
+  {
+    "key": "homeassistant.url",
+    "hidden": true
+  },
+  {
+    "key": "homeassistant.token",
+    "hidden": true
+  }
+]

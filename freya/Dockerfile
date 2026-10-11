@@ -2,12 +2,6 @@ ARG BUILD_FROM=node:22-bookworm-slim
 
 FROM ${BUILD_FROM} AS builder
 
-WORKDIR /build/plugin-tool-homeassistant
-COPY plugins/plugin-tool-homeassistant/package.json ./
-RUN npm install --no-audit --no-fund
-COPY plugins/plugin-tool-homeassistant/ ./
-RUN npm run build && npm prune --production
-
 WORKDIR /build
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates git \
     && git clone --depth=1 https://github.com/eoasmxd/ha-integration-freya.git /build/integration-repo \
@@ -18,19 +12,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 
 FROM ${BUILD_FROM}
 
+ARG FREYA_VERSION=latest
+
 WORKDIR /app
 
 ENV NODE_ENV=production \
     FREYA_HOME=/config/freya \
     FREYA_LAUNCH=/app
 
-RUN npm install -g @eoasmxd/freya@0.8.2 --no-audit --no-fund
+RUN npm install -g @eoasmxd/freya@${FREYA_VERSION} --no-audit --no-fund
 
-COPY --from=builder /build/plugin-tool-homeassistant/package.json /app/plugins/plugin-tool-homeassistant/
-COPY --from=builder /build/plugin-tool-homeassistant/schema.json /app/plugins/plugin-tool-homeassistant/
-COPY --from=builder /build/plugin-tool-homeassistant/dist /app/plugins/plugin-tool-homeassistant/dist
-COPY --from=builder /build/plugin-tool-homeassistant/config /app/plugins/plugin-tool-homeassistant/config
 COPY --from=builder /build/integration/freya /app/integration/custom_components/freya/
+COPY config/schema.json /app/config/schema.json
 
 EXPOSE 3000
 
