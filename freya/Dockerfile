@@ -1,10 +1,11 @@
-ARG BUILD_FROM=node:22-bookworm-slim
+ARG BUILD_FROM=ghcr.io/eoasmxd/freya:latest
 
-FROM ${BUILD_FROM} AS builder
+FROM alpine/git:latest AS builder
 
 WORKDIR /build
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates git \
-    && git clone --depth=1 https://github.com/eoasmxd/ha-integration-freya.git /build/integration-repo \
+RUN LATEST_TAG=$(git ls-remote --tags --sort="v:refname" https://github.com/eoasmxd/ha-integration-freya.git | grep -v '\^{}' | tail -n1 | sed 's/.*\///') \
+    && echo "Detected latest release tag: ${LATEST_TAG}" \
+    && git clone --depth=1 --branch "${LATEST_TAG:-main}" https://github.com/eoasmxd/ha-integration-freya.git /build/integration-repo \
     && mkdir -p /build/integration \
     && cp -r /build/integration-repo/custom_components/freya /build/integration/ \
     && rm -rf /build/integration-repo
@@ -12,15 +13,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 
 FROM ${BUILD_FROM}
 
-ARG FREYA_VERSION=latest
-
 WORKDIR /app
 
 ENV NODE_ENV=production \
     FREYA_HOME=/config/freya \
     FREYA_LAUNCH=/app
-
-RUN npm install -g @eoasmxd/freya@${FREYA_VERSION} --no-audit --no-fund
 
 COPY --from=builder /build/integration/freya /app/integration/custom_components/freya/
 COPY config/ /app/config/
@@ -28,3 +25,4 @@ COPY config/ /app/config/
 EXPOSE 3000
 
 CMD ["freya", "--no-cli", "--foreground", "--no-auth", "--port", "3000"]
+
