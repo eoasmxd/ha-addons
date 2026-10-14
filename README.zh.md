@@ -4,7 +4,7 @@
 
 [English](README.md) | [简体中文](README.zh.md)
 
-Home Assistant 应用（Add-ons）仓库。
+Home Assistant 应用（Apps）仓库。
 
 ---
 
@@ -29,7 +29,7 @@ Home Assistant 应用（Add-ons）仓库。
 ### 方式二：手动添加仓库
 
 1. 进入您的 Home Assistant 控制台。
-2. 依次点击：**设置 (Settings)** -> **应用 (Add-ons)** -> **安装应用 (Add-on Store)**。
+2. 依次点击：**设置 (Settings)** -> **应用 (Apps)** -> **应用商店 (App Store)**。
 3. 点击右上角的 **三个点 (⋮)**，选择 **仓库 (Repositories)**。
 4. 在输入框中填入本仓库地址并点击添加：
    ```text

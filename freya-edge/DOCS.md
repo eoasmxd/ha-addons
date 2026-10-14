@@ -1,12 +1,12 @@
 A lightweight AI agent system (Edge Channel / 尝鲜版) based on a microkernel architecture with built-in Web interaction and automation channels.
 
-> ⚠️ **IMPORTANT**: Freya Stable and Freya Edge share the same persistent data directory (`/config/freya/`). Please **STOP or UNINSTALL the standard Freya add-on before starting Freya Edge**. Do NOT run both simultaneously.
+> ⚠️ **IMPORTANT**: Freya Stable and Freya Edge share the same persistent data directory (`/config/freya/`). Please **STOP or UNINSTALL the standard Freya app before starting Freya Edge**. Do NOT run both simultaneously.
 > 
-> ⚠️ **重要提示**：Freya 正式版与 Edge 版共用宿主机数据目录（`/config/freya/`）。启动 Edge 尝鲜版前，**请务必先停止或卸载已运行的正式版 Freya 加载项**，两者切勿同时启动运行！
+> ⚠️ **重要提示**：Freya 正式版与 Edge 版共用宿主机数据目录（`/config/freya/`）。启动 Edge 尝鲜版前，**请务必先停止或卸载已运行的正式版 Freya 应用**，两者切勿同时启动运行！
 
 ### Quick Start
 
-1. After installation, it is recommended to enable **"Show in sidebar"** and **"Start on boot"** on the add-on info page.
+1. After installation, it is recommended to enable **"Show in sidebar"** and **"Start on boot"** on the app info page.
 2. Click **"Start"**.
 3. Click **"Freya (Edge)"** in the Home Assistant sidebar to enter the Web UI for configuration and chat.
 4. **LLM Configuration (Required on first launch)**:
@@ -16,7 +16,7 @@ A lightweight AI agent system (Edge Channel / 尝鲜版) based on a microkernel 
    - Go to **Global Config -> Category: "Models"**: under **Default Model Fallback Chain**, select the model and click **Bind**.
    - **Click the "Save Configuration" button** in the bottom-right corner to apply.
 5. **Home Assistant Integration Setup (Assist & Automations)**:
-   - On first launch, the add-on automatically deploys the official custom integration to `/config/custom_components/freya`.
+   - On first launch, the app automatically deploys the official custom integration to `/config/custom_components/freya`.
    - Follow the persistent notification prompt to **restart Home Assistant**.
    - After restarting, navigate to **Settings -> Devices & Services** and click **Configure** on the discovered **Freya** integration (or click **Add Integration** and search for `Freya`).
    - Once added, select Freya in **Settings -> Voice assistants** as your Assist conversation agent, or call the `freya.chat` action in automations.
@@ -36,13 +36,13 @@ All data and configurations are persistently stored in **`/config/freya/`**:
 - **Data & Memories**: `/config/freya/data/`
 - **User Configurations**: `/config/freya/config/`
 
-Data will not be lost across add-on upgrades or restarts. You can view or back up this directory directly using the File Editor or VS Code add-on.
+Data will not be lost across app upgrades or restarts. You can view or back up this directory directly using the File Editor or VS Code app.
 
 ### Home Assistant Integration & Security
 
-This add-on features a built-in smart interaction toolbox dedicated to Home Assistant:
+This app features a built-in smart interaction toolbox dedicated to Home Assistant:
 - **Entity Exposure Authorization**: The devices and sensors accessible to Freya strictly follow the entities you exposed to the conversation assistant (Assist) in the native Home Assistant interface (**Settings -> Voice assistants -> Expose**).
-- **Device Control Switch**: Defaults to **Safe Read-Only Mode** (querying entity states only). To allow the agent to perform actions such as turning on/off switches and lights, enable the **"Allow agent to call device control services"** switch in the Freya Web UI under **Settings ⚙️ -> Global Config -> "Plugin Config: tool-homeassistant"** (takes effect dynamically without restarting the add-on).
+- **Device Control Switch**: Defaults to **Safe Read-Only Mode** (querying entity states only). To allow the agent to perform actions such as turning on/off switches and lights, enable the **"Allow agent to call device control services"** switch in the Freya Web UI under **Settings ⚙️ -> Global Config -> "Plugin Config: tool-homeassistant"** (takes effect dynamically without restarting the app).
 
 ---
 
@@ -86,4 +86,4 @@ This add-on features a built-in smart interaction toolbox dedicated to Home Assi
 
 本应用内置了 Home Assistant 专用智能交互工具箱：
 - **实体暴露授权**：Freya 能够感知的设备与传感器实体，完全遵循你在 Home Assistant 原生界面（**设置 -> 语音助手 -> 暴露**）中勾选暴露给对话助手（Assist）的实体列表。
-- **设备控制开关**：默认处于**安全只读模式**（仅允许查询实体状态）。如需允许智能体执行开关灯、控制开关等服务动作，请在 Freya Web 控制台的 **设置 ⚙️ -> 全局配置 -> “插件配置：tool-homeassistant”** 中开启 **“允许智能体调用设备控制服务”** 开关并保存（即时生效，无需重启加载项）。
+- **设备控制开关**：默认处于**安全只读模式**（仅允许查询实体状态）。如需允许智能体执行开关灯、控制开关等服务动作，请在 Freya Web 控制台的 **设置 ⚙️ -> 全局配置 -> “插件配置：tool-homeassistant”** 中开启 **“允许智能体调用设备控制服务”** 开关并保存（即时生效，无需重启应用）。
