@@ -2,6 +2,15 @@ name: Publish Freya Add-on
 
 on:
   workflow_dispatch:
+    inputs:
+      publish_edge:
+        description: 'Build & Publish Freya (Edge)'
+        type: boolean
+        default: true
+      publish_stable:
+        description: 'Build & Publish Freya (Stable)'
+        type: boolean
+        default: false
 
 jobs:
   publish-freya:
@@ -24,7 +33,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and publish image via HA official Builder
+      - name: Build and publish Freya (Edge)
+        if: inputs.publish_edge == true
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --amd64 \
+            --aarch64 \
+            --target freya-edge \
+            --image "freya-ha-addon-edge-{arch}"
+
+      - name: Build and publish Freya (Stable)
+        if: inputs.publish_stable == true
         uses: home-assistant/builder@master
         with:
           args: |
@@ -32,3 +52,5 @@ jobs:
             --aarch64 \
             --target freya \
             --image "freya-ha-addon-{arch}"
+
+
