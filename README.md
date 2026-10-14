@@ -4,13 +4,13 @@
 
 [English](README.md) | [简体中文](README.zh.md)
 
-Home Assistant Add-on repository.
+Home Assistant Apps repository.
 
 ---
 
-## 📦 Add-on List
+## 📦 App List
 
-| Add-on | Description | Supported Architectures | Repository |
+| App | Description | Supported Architectures | Repository |
 | :--- | :--- | :--- | :--- |
 | **[Freya](./freya)** | Lightweight AI agent system with Home Assistant entity state awareness and device control | `amd64` / `aarch64` | [freya](https://github.com/eoasmxd/freya) |
 
@@ -29,13 +29,13 @@ Click the button below to open your Home Assistant instance and automatically ad
 ### Method 2: Manual Addition
 
 1. Open your Home Assistant dashboard.
-2. Navigate to: **Settings** -> **Add-ons** -> **Add-on Store**.
+2. Navigate to: **Settings** -> **Apps** -> **App Store**.
 3. Click the **three dots (⋮)** in the top right corner and select **Repositories**.
 4. Enter this repository URL in the input field and click Add:
    ```text
    https://github.com/eoasmxd/ha-addons
    ```
-5. Refresh the Add-on Store page to see **eoasMXD App Hub** and its apps in the list.
+5. Refresh the App Store page to see **eoasMXD App Hub** and its apps in the list.
 
 ---
 
