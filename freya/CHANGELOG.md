@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2
+
+- Add Model Context Protocol (MCP) support.
+- Plain text cleaning for TTS output.
+
+- 增加模型上下文协议（MCP）支持。
+- 增加 TTS 语音纯文本清洗。
+
 ## 1.0.1
 
 - First official stable release (GA).
