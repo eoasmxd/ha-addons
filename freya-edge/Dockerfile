@@ -3,11 +3,14 @@ ARG BUILD_FROM=ghcr.io/eoasmxd/freya:edge
 FROM alpine/git:latest AS builder
 
 WORKDIR /build
-RUN git clone --depth=1 --branch main https://github.com/eoasmxd/ha-integration-freya.git /build/integration-repo \
+RUN apk add --no-cache jq \
+    && git clone --depth=1 --branch main https://github.com/eoasmxd/ha-integration-freya.git /build/integration-repo \
+    && MANIFEST="/build/integration-repo/custom_components/freya/manifest.json" \
+    && jq 'if .version_edge then .version = .version_edge | del(.version_edge) else . end' "$MANIFEST" > "$MANIFEST.tmp" \
+    && mv "$MANIFEST.tmp" "$MANIFEST" \
     && mkdir -p /build/integration \
     && cp -r /build/integration-repo/custom_components/freya /build/integration/ \
     && rm -rf /build/integration-repo
-
 
 FROM ${BUILD_FROM}
 
