@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.4
+
+- Add the Freya AI TTS proxy platform to wrap underlying TTS entities and optimize AI-generated text before speech synthesis.
+- Decouple plain-text cleaning from the conversation entity to preserve rich formatting in chat responses while delegating speech text cleaning to the TTS proxy.
+- Enhance plain-text cleaning to strip modern Emoji characters, preventing TTS engines from reading out emojis.
+
+- 新增 Freya AI TTS 代理平台，用于封装底层 TTS 实体并在语音合成前优化 AI 生成的文本。
+- 将纯文本清洗逻辑从对话实体中解耦，在保留对话回复富文本格式的同时，将语音文本清洗交由 TTS 代理处理。
+- 增强纯文本清洗能力以过滤现代 Emoji 表情符号，防止 TTS 引擎朗读出表情字符。
+
 ## 1.0.2
 
 - Add Model Context Protocol (MCP) support.
