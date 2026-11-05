@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.5
+
+- Decouple the Home Assistant custom integration from the add-on. The official integration is now hosted on HACS, with version management and lifecycle handled independently.
+
+- 将 Home Assistant 自定义集成从应用中解耦，集成正式入驻 HACS，后续版本管理与生命周期由 HACS 独立负责。
+
 ## 1.0.4
 
 - Add the Freya AI TTS proxy platform to wrap underlying TTS entities and optimize AI-generated text before speech synthesis.
