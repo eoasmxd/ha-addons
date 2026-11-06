@@ -20,7 +20,7 @@ A lightweight AI agent system (Edge Channel / 尝鲜版) based on a microkernel 
      
      [![Open your Home Assistant instance and open a repository in the Marketplace.](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=eoasmxd&repository=ha-integration-freya)
      
-     *(Click the badge above to download via My Home Assistant, or open **HACS** and search for **Freya**; if not listed yet, manually add `https://github.com/eoasmxd/ha-integration-freya` as a Custom Repository in HACS)*
+     *(Click the badge above to download via My Home Assistant, or open **HACS** and search for **Freya**)*
    - Restart Home Assistant.
    - After restarting, navigate to **Settings -> Devices & Services** and click **Configure** on the discovered **Freya** integration (or click **Add Integration** and search for `Freya`).
    - Once added, select Freya in **Settings -> Voice assistants** as your Assist conversation agent, or call the `freya.chat` action in automations.
@@ -68,7 +68,7 @@ This app features a built-in smart interaction toolbox dedicated to Home Assista
      
      [![在 Marketplace 中打开此存储库](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=eoasmxd&repository=ha-integration-freya)
      
-     *(点击上方徽章一键直达下载，或在 **HACS** 中搜索 **Freya** 安装；若尚未收录，可在 HACS「自定义存储库」中手动添加 `https://github.com/eoasmxd/ha-integration-freya`)*
+     *(点击上方徽章一键直达下载，或在 **HACS** 中搜索 **Freya** 安装)*
    - 安装完成后**重启 Home Assistant**。
    - 重启完成后进入 **设置 -> 设备与集成**，点击自动弹出的 **Freya** 进行配置确认（或点击右下角 **添加集成** 搜索 `Freya`）。
    - 添加成功后，即可在 **设置 -> 语音助手** 中将 Freya 选为 Assist 对话代理，或在自动化中直接调用 `freya.chat` 动作。
