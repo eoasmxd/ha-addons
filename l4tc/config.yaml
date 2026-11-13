@@ -1,5 +1,5 @@
 name: "L4Tunnel Client"
-description: "High-performance Layer 4 TCP tunnel client / 高性能四层内网穿透客户端"
+description: "Layer 4 TCP tunnel client / 四层 TCP 内网穿透客户端"
 url: "https://github.com/eoasmxd/l4tunnel"
 image: "ghcr.io/eoasmxd/l4tc-ha-addon-{arch}"
 version: "0.30.0"
