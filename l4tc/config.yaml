@@ -1,0 +1,46 @@
+name: "L4Tunnel Client"
+description: "High-performance Layer 4 TCP/UDP tunnel client / 高性能四层内网穿透客户端"
+url: "https://github.com/eoasmxd/l4tunnel"
+image: "ghcr.io/eoasmxd/l4tc-ha-addon-{arch}"
+version: "0.30.0"
+slug: "l4tc"
+init: false
+arch:
+  - aarch64
+  - amd64
+startup: services
+boot: auto
+
+map:
+  - config:rw
+
+options:
+  use_custom_config: false
+  custom_config_path: "/config/l4tunnel/l4tc.ini"
+  server_addr: "127.0.0.1"
+  server_port: 3007
+  token: "12345678"
+  log_level: "info"
+  pool_count: 5
+  tunnels:
+    - name: "ha"
+      local_ip: "127.0.0.1"
+      local_port: 8123
+      remote_port: 8123
+      health_check: false
+
+schema:
+  use_custom_config: bool
+  custom_config_path: str
+  server_addr: str
+  server_port: port
+  token: password
+  log_level: list(trace|debug|info|warn|error)
+  pool_count: int
+  tunnels:
+    - name: str
+      local_ip: str
+      local_port: port
+      remote_port: port
+      health_check: bool?
+
