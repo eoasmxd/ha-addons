@@ -1,4 +1,4 @@
-A high-performance Layer 4 (TCP/UDP) reverse proxy tunnel client for Home Assistant.
+A high-performance Layer 4 TCP reverse proxy tunnel client for Home Assistant.
 
 ### Quick Start
 
@@ -27,7 +27,7 @@ If you prefer to maintain the native INI configuration file directly:
 
 ---
 
-高性能四层 (TCP/UDP) 反向代理内网穿透客户端，专为 Home Assistant 设计。
+高性能四层 TCP 反向代理内网穿透客户端，专为 Home Assistant 设计。
 
 ### 使用指引
 
