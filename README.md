@@ -13,7 +13,7 @@ Home Assistant Apps repository.
 | App | Description | Supported Architectures | Repository |
 | :--- | :--- | :--- | :--- |
 | **[Freya](./freya)** | Lightweight AI agent system with Home Assistant entity state awareness and device control | `amd64` / `aarch64` | [freya](https://github.com/eoasmxd/freya) |
-| **[L4Tunnel Client](./l4tc)** | Layer 4 TCP tunnel client with dual-mode configuration | `amd64` / `aarch64` | [l4tunnel](https://github.com/eoasmxd/l4tunnel) |
+| **[L4Tunnel Client](./l4tc)** | Layer 4 TCP tunnel client | `amd64` / `aarch64` | [l4tunnel](https://github.com/eoasmxd/l4tunnel) |
 
 ---
 
