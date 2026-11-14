@@ -21,7 +21,7 @@ EOF
 
 TUNNEL_COUNT=$(jq '.tunnels // [] | length' /data/options.json)
 for (( i=0; i<$TUNNEL_COUNT; i++ )); do
-    ENABLED=$(jq -r ".tunnels[$i].enabled // true" /data/options.json)
+    ENABLED=$(jq -r ".tunnels[$i].enabled" /data/options.json)
     if [ "$ENABLED" = "false" ]; then
         continue
     fi
