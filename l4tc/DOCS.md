@@ -11,6 +11,7 @@ A Layer 4 TCP reverse proxy tunnel client.
    - **`token`**: The authentication password matching the server's token.
 3. Configure your tunnels under **`tunnels`**:
    - `name`: Section name for the tunnel (e.g. `ha`, `ssh`).
+   - `enabled`: Whether to enable this tunnel (default: `true`).
    - `local_ip`: Target local IP (default: `127.0.0.1`).
    - `local_port`: Local service port to expose (e.g. `8123` for Home Assistant).
    - `remote_port`: Remote port allocated on the `l4ts` server.
@@ -32,6 +33,7 @@ A Layer 4 TCP reverse proxy tunnel client.
    - **`token`**：连接认证 Token，需与服务端保持一致。
 3. 在 **`tunnels`** 列表中配置端口映射规则：
    - `name`：隧道名称（如 `ha`、`ssh`）。
+   - `enabled`：是否启用该隧道映射（默认 `true`）。
    - `local_ip`：本地内网目标 IP（默认 `127.0.0.1`）。
    - `local_port`：需要映射的本地端口（例如 Home Assistant 默认端口 `8123`）。
    - `remote_port`：服务端对外暴露的远程访问端口。
