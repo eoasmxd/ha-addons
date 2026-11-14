@@ -21,6 +21,11 @@ EOF
 
 TUNNEL_COUNT=$(jq '.tunnels // [] | length' /data/options.json)
 for (( i=0; i<$TUNNEL_COUNT; i++ )); do
+    ENABLED=$(jq -r ".tunnels[$i].enabled // true" /data/options.json)
+    if [ "$ENABLED" = "false" ]; then
+        continue
+    fi
+
     NAME=$(jq -r ".tunnels[$i].name" /data/options.json)
     LOCAL_IP=$(jq -r ".tunnels[$i].local_ip // \"127.0.0.1\"" /data/options.json)
     LOCAL_PORT=$(jq -r ".tunnels[$i].local_port" /data/options.json)
