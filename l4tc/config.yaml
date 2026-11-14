@@ -4,7 +4,6 @@ url: "https://github.com/eoasmxd/l4tunnel"
 image: "ghcr.io/eoasmxd/l4tc-ha-addon-{arch}"
 version: "1.0.1"
 slug: "l4tc"
-stage: experimental
 init: false
 arch:
   - aarch64
