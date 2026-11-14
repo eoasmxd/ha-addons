@@ -13,7 +13,7 @@ Home Assistant 应用（Apps）仓库。
 | 应用 | 简介 | 支持架构 | 项目 |
 | :--- | :--- | :--- | :--- |
 | **[Freya](./freya)** | 轻量级智能体系统，支持 Home Assistant 状态感知与设备控制 | `amd64` / `aarch64` | [freya](https://github.com/eoasmxd/freya) |
-| **[L4Tunnel Client](./l4tc)** | 四层 TCP 内网穿透客户端，支持双模配置 | `amd64` / `aarch64` | [l4tunnel](https://github.com/eoasmxd/l4tunnel) |
+| **[L4Tunnel Client](./l4tc)** | 四层 TCP 内网穿透客户端 | `amd64` / `aarch64` | [l4tunnel](https://github.com/eoasmxd/l4tunnel) |
 
 ---
 

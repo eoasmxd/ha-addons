@@ -2,7 +2,7 @@ name: "L4Tunnel Client"
 description: "Layer 4 TCP tunnel client / 四层 TCP 内网穿透客户端"
 url: "https://github.com/eoasmxd/l4tunnel"
 image: "ghcr.io/eoasmxd/l4tc-ha-addon-{arch}"
-version: "0.30.0"
+version: "0.30.1"
 slug: "l4tc"
 stage: experimental
 init: false
@@ -12,12 +12,7 @@ arch:
 startup: services
 boot: auto
 
-map:
-  - config:rw
-
 options:
-  use_custom_config: false
-  custom_config_path: "/config/l4tunnel/l4tc.ini"
   server_addr: "127.0.0.1"
   server_port: 3007
   token: "12345678"
@@ -31,8 +26,6 @@ options:
       health_check: false
 
 schema:
-  use_custom_config: bool
-  custom_config_path: str
   server_addr: str
   server_port: port
   token: password

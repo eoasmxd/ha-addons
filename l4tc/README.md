@@ -14,7 +14,7 @@ Layer 4 TCP tunnel client.
 ### ✨ Key Features
 
 - ⚡ **TCP Tunneling**: Pure Layer 4 TCP forwarding with low latency and low resource overhead.
-- 🔄 **Dual Configuration Modes**: Supports both Home Assistant native UI form configuration and external `/config/l4tunnel/l4tc.ini` file configuration.
+- 🛠️ **Native UI Configuration**: Seamless configuration directly via Home Assistant UI options.
 
 ---
 
@@ -29,7 +29,7 @@ Layer 4 TCP tunnel client.
 ### ✨ 核心特性
 
 - ⚡ **四层 TCP 转发**：纯四层 TCP 转发，低延迟与低资源开销。
-- 🔄 **双模配置支持**：同时支持 Home Assistant 原生图形化配置表单与外部 `/config/l4tunnel/l4tc.ini` 原生配置文件。
+- 🛠️ **原生图形化配置**：直接通过 Home Assistant 应用选项配置，开箱即用。
 
 ---
 
