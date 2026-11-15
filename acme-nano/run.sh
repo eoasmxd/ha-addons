@@ -10,11 +10,8 @@ case "$DNS_PROVIDER" in
     cloudflare)
         ACME_BIN="/usr/local/bin/acme-cf"
         ;;
-    aliyun)
-        ACME_BIN="/usr/local/bin/acme-aliyun"
-        ;;
-    dnspod)
-        ACME_BIN="/usr/local/bin/acme-dnspod"
+    aliyun|dnspod|aws|gd|dgon|gcloud|namecheap|azure|ovh|hetznercloud|duckdns|porkbun|namesilo|vultr)
+        ACME_BIN="/usr/local/bin/acme-${DNS_PROVIDER}"
         ;;
     *)
         echo "[ERROR] Unsupported dns_provider: $DNS_PROVIDER"
