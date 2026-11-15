@@ -40,8 +40,9 @@ jobs:
           args: |
             --amd64 \
             --aarch64 \
+            --no-latest \
             --target freya-edge \
-            --image "freya-ha-addon-edge-{arch}"
+            --image "freya-ha-addon-{arch}"
 
       - name: Build and publish Freya (Stable)
         if: inputs.publish_stable == true

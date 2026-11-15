@@ -1,0 +1,41 @@
+name: Publish ACME Nano Add-on
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Build & Publish ACME Nano Add-on'
+        type: boolean
+        default: true
+
+jobs:
+  publish-acme-nano:
+    name: Build & Publish ACME Nano
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU for multi-platform emulation
+        uses: docker/setup-qemu-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and publish ACME Nano
+        if: inputs.publish == true
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --amd64 \
+            --aarch64 \
+            --target acme-nano \
+            --image "acme-nano-ha-addon-{arch}"
+

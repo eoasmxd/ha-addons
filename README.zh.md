@@ -14,6 +14,7 @@ Home Assistant 应用（Apps）仓库。
 | :--- | :--- | :--- | :--- |
 | **[Freya](./freya)** | 轻量级智能体系统，支持 Home Assistant 状态感知与设备控制 | `amd64` / `aarch64` | [freya](https://github.com/eoasmxd/freya) |
 | **[L4Tunnel Client](./l4tc)** | 四层 TCP 内网穿透客户端 | `amd64` / `aarch64` | [l4tunnel](https://github.com/eoasmxd/l4tunnel) |
+| **[ACME Nano (Let's Encrypt)](./acme-nano)** | 极简 Let's Encrypt DNS-01 证书自动签发与续期客户端 | `amd64` / `aarch64` | [acme-nano](https://github.com/eoasmxd/acme-nano) |
 
 ---
 
