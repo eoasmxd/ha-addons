@@ -1,0 +1,41 @@
+name: "ACME Nano (Let's Encrypt)"
+description: "Lightweight Let's Encrypt DNS-01 SSL certificate client / 极简 Let's Encrypt DNS-01 证书自动签发与续期客户端"
+url: "https://github.com/eoasmxd/acme-nano"
+image: "ghcr.io/eoasmxd/acme-nano-ha-addon-{arch}"
+version: "1.0.1"
+slug: "acme_nano"
+stage: experimental
+init: false
+arch:
+  - aarch64
+  - amd64
+startup: services
+boot: auto
+
+map:
+  - ssl:rw
+
+options:
+  dns_provider: "cloudflare"
+  dns_id: ""
+  dns_secret: ""
+  check_interval: 24
+  certificates:
+    - enabled: true
+      domains: "example.com,*.example.com"
+      dns_zone: ""
+      certfile: "fullchain.pem"
+      keyfile: "privkey.pem"
+
+schema:
+  dns_provider: list(cloudflare|aliyun|dnspod)
+  dns_id: str?
+  dns_secret: password
+  check_interval: int(1,720)?
+  certificates:
+    - enabled: bool?
+      domains: str
+      dns_zone: str
+      certfile: str
+      keyfile: str
+

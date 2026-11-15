@@ -14,6 +14,7 @@ Home Assistant Apps repository.
 | :--- | :--- | :--- | :--- |
 | **[Freya](./freya)** | Lightweight AI agent system with Home Assistant entity state awareness and device control | `amd64` / `aarch64` | [freya](https://github.com/eoasmxd/freya) |
 | **[L4Tunnel Client](./l4tc)** | Layer 4 TCP tunnel client | `amd64` / `aarch64` | [l4tunnel](https://github.com/eoasmxd/l4tunnel) |
+| **[ACME Nano (Let's Encrypt)](./acme-nano)** | Lightweight Let's Encrypt DNS-01 SSL certificate client | `amd64` / `aarch64` | [acme-nano](https://github.com/eoasmxd/acme-nano) |
 
 ---
 
