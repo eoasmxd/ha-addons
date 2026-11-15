@@ -4,7 +4,6 @@ url: "https://github.com/eoasmxd/acme-nano"
 image: "ghcr.io/eoasmxd/acme-nano-ha-addon-{arch}"
 version: "1.0.1"
 slug: "acme_nano"
-stage: experimental
 init: false
 arch:
   - aarch64
