@@ -2,7 +2,7 @@
 
 > 📖 **中文文档**: [DOCS.zh.md on GitHub](https://github.com/eoasmxd/ha-addons/blob/main/acme-nano/DOCS.zh.md)
 
-A lightweight Let's Encrypt DNS-01 SSL certificate client for Home Assistant.
+A zero-dependency, auditable Let's Encrypt DNS-01 SSL certificate client for Home Assistant.
 
 > **Upstream Project**: For protocol details and standalone binaries, see [acme-nano on GitHub](https://github.com/eoasmxd/acme-nano).
 

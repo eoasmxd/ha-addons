@@ -1,10 +1,10 @@
-# ACME Nano (Let's Encrypt) · 极简证书客户端
+# ACME Nano (Let's Encrypt)
 
 [![Home Assistant Version](https://img.shields.io/badge/Home%20Assistant-2026.2.0%2B-blue.svg)](https://www.home-assistant.io/)
 
 [English](README.md) | [简体中文](README.zh.md)
 
-极简 Let's Encrypt DNS-01 证书自动签发与续期客户端。
+零依赖、易审计的 Let's Encrypt DNS-01 证书客户端。
 
 ---
 
