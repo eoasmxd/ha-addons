@@ -1,4 +1,4 @@
-# Home Assistant Add-ons
+# Home Assistant Apps
 
 [![Home Assistant Version](https://img.shields.io/badge/Home%20Assistant-2026.2.0%2B-blue.svg)](https://www.home-assistant.io/)
 
@@ -12,9 +12,9 @@ Home Assistant 应用（Apps）仓库。
 
 | 应用 | 简介 | 支持架构 | 项目 |
 | :--- | :--- | :--- | :--- |
-| **[Freya](./freya)** | 轻量级智能体系统，支持 Home Assistant 状态感知与设备控制 | `amd64` / `aarch64` | [freya](https://github.com/eoasmxd/freya) |
-| **[L4Tunnel Client](./l4tc)** | 四层 TCP 内网穿透客户端 | `amd64` / `aarch64` | [l4tunnel](https://github.com/eoasmxd/l4tunnel) |
-| **[ACME Nano (Let's Encrypt)](./acme-nano)** | 极简 Let's Encrypt DNS-01 证书自动签发与续期客户端 | `amd64` / `aarch64` | [acme-nano](https://github.com/eoasmxd/acme-nano) |
+| **[Freya](./freya/README.zh.md)** | 支持实体状态感知与设备控制的轻量级智能体系统 | `amd64` / `aarch64` | [freya](https://github.com/eoasmxd/freya) |
+| **[L4Tunnel Client](./l4tc/README.zh.md)** | 四层内网穿透客户端 | `amd64` / `aarch64` | [l4tunnel](https://github.com/eoasmxd/l4tunnel) |
+| **[ACME Nano (Let's Encrypt)](./acme-nano/README.zh.md)** | 极简证书自动签发与续期客户端 | `amd64` / `aarch64` | [acme-nano](https://github.com/eoasmxd/acme-nano) |
 
 ---
 
@@ -31,8 +31,8 @@ Home Assistant 应用（Apps）仓库。
 ### 方式二：手动添加仓库
 
 1. 进入您的 Home Assistant 控制台。
-2. 依次点击：**设置 (Settings)** -> **应用 (Apps)** -> **应用商店 (App Store)**。
-3. 点击右上角的 **三个点 (⋮)**，选择 **仓库 (Repositories)**。
+2. 依次点击：**设置（Settings）** -> **应用（Apps）** -> **应用商店（App Store）**。
+3. 点击右上角的 **三个点（⋮）**，选择 **仓库（Repositories）**。
 4. 在输入框中填入本仓库地址并点击添加：
    ```text
    https://github.com/eoasmxd/ha-addons

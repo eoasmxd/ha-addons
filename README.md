@@ -1,4 +1,4 @@
-# Home Assistant Add-ons
+# Home Assistant Apps
 
 [![Home Assistant Version](https://img.shields.io/badge/Home%20Assistant-2026.2.0%2B-blue.svg)](https://www.home-assistant.io/)
 

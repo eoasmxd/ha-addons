@@ -1,0 +1,20 @@
+configuration:
+  server_addr:
+    name: 服务端地址
+    description: L4Tunnel Server 的公网 IP 地址或域名。
+  server_port:
+    name: 服务端端口
+    description: L4Tunnel Server 的控制服务端口（默认 3007）。
+  token:
+    name: 认证令牌
+    description: 连接认证令牌，需与服务端配置保持一致。
+  log_level:
+    name: 日志级别
+    description: 运行日志输出级别（trace、debug、info、warn、error）。
+  pool_count:
+    name: 连接池数量
+    description: 预建立的隧道连接池大小。
+  tunnels:
+    name: 隧道列表
+    description: TCP 端口映射规则列表（包含 name、enabled、local_ip、local_port、remote_port、health_check）。
+
