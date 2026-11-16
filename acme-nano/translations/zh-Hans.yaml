@@ -1,0 +1,17 @@
+configuration:
+  dns_provider:
+    name: DNS 服务商
+    description: 用于执行 ACME DNS-01 域名验证的解析服务商。
+  dns_id:
+    name: DNS API ID
+    description: 服务商所需的 API ID 或 Key ID（无需填写的厂商留空即可）。
+  dns_secret:
+    name: DNS API 密钥
+    description: 对应服务商的 API Secret 或 Token 密钥。
+  check_interval:
+    name: 巡检周期（小时）
+    description: 证书到期检查与自动续期周期，单位为小时（默认 24，范围 1–720）。
+  certificates:
+    name: 证书列表
+    description: 需要签发与自动续期的域名证书配置列表（包含 enabled、domains、dns_zone、certfile、keyfile）。
+
