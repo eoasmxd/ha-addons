@@ -1,10 +1,10 @@
-# ACME Nano (Let's Encrypt) · 极简证书客户端
+# ACME Nano (Let's Encrypt)
 
 [![Home Assistant Version](https://img.shields.io/badge/Home%20Assistant-2026.2.0%2B-blue.svg)](https://www.home-assistant.io/)
 
 [English](https://github.com/eoasmxd/ha-addons/blob/main/acme-nano/README.md) | [简体中文](https://github.com/eoasmxd/ha-addons/blob/main/acme-nano/README.zh.md)
 
-Lightweight Let's Encrypt DNS-01 SSL certificate client.
+Zero-dependency, auditable Let's Encrypt DNS-01 SSL certificate client.
 
 ---
 

@@ -2,7 +2,7 @@
 
 [English](DOCS.md) | [简体中文](DOCS.zh.md)
 
-极简的 Home Assistant Let's Encrypt DNS-01 证书自动签发与续期应用。
+零依赖、易审计的 Home Assistant Let's Encrypt DNS-01 证书客户端。
 
 > **上游项目**：关于协议细节与独立二进制使用方式，请参见 [GitHub 仓库](https://github.com/eoasmxd/acme-nano)。
 
