@@ -1,20 +1,39 @@
 configuration:
   server_addr:
     name: Server Address
-    description: The public IP address or domain name of your L4Tunnel Server.
+    description: The public IP address or domain name of your L4Tunnel Server
   server_port:
     name: Server Port
-    description: The control service port of your L4Tunnel Server (default 3007).
+    description: The control service port of your L4Tunnel Server
   token:
     name: Authentication Token
-    description: The authentication token matching the L4Tunnel Server configuration.
+    description: The authentication token matching the L4Tunnel Server configuration
   log_level:
     name: Log Level
-    description: Logging verbosity level (trace, debug, info, warn, error).
+    description: Logging verbosity level
   pool_count:
     name: Connection Pool Size
-    description: Number of pre-established tunnel connections in the pool.
+    description: Number of pre-established tunnel connections in the pool
   tunnels:
     name: Tunnels
-    description: List of TCP port forwarding tunnel rules (name, enabled, local_ip, local_port, remote_port, health_check).
+    description: List of TCP port forwarding tunnel rules
+    fields:
+      name:
+        name: Tunnel Name
+        description: Unique identifier name for the tunnel
+      enabled:
+        name: Enabled
+        description: Whether to enable this tunnel rule
+      local_ip:
+        name: Local IP
+        description: Local target IP address to forward traffic to
+      local_port:
+        name: Local Port
+        description: Local target port to forward traffic to
+      remote_port:
+        name: Remote Port
+        description: Public port exposed on the L4Tunnel Server
+      health_check:
+        name: Health Check
+        description: Whether to enable health check for this tunnel
 
