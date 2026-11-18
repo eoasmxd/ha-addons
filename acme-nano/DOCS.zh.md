@@ -26,21 +26,21 @@
 
 ### 服务商参数对照表
 
-| `dns_provider` | `dns_id` | `dns_secret` | `dns_zone` |
+| `dns_provider`（服务商） | `dns_id` | `dns_secret` | `dns_zone` |
 | :--- | :--- | :--- | :--- |
-| `cloudflare` | - | Cloudflare API Token | Zone ID |
-| `aliyun` | AccessKeyId | AccessKeySecret | 主域名（`example.com`） |
-| `dnspod` | SecretId | SecretKey | 主域名（`example.com`） |
-| `aws` | AWS Access Key ID | AWS Secret Access Key | Hosted Zone ID（`Z123456`） |
-| `gd` | API Key | API Secret | 主域名（`example.com`） |
-| `dgon` | - | DigitalOcean API Token | 主域名（`example.com`） |
-| `gcloud` | GCP Project ID | OAuth2 Bearer Token / Service Account JSON | Managed Zone Name |
-| `namecheap` | `ApiUser:ClientIp`（默认 `127.0.0.1`） | Namecheap API Key | 主域名（`example.com`） |
-| `azure` | `TenantID/ClientID` | Client Secret | `SubscriptionID/ResourceGroup/ZoneName` |
-| `ovh` | Application Key（`AK`） | `ApplicationSecret:ConsumerKey`（`AS:CK`） | 主域名（`example.com` 或 `ovh-us/example.com`） |
-| `hetznercloud` | - | Hetzner Cloud API Token | 主域名（`example.com`） |
-| `duckdns` | - | DuckDNS Token | 可选（留空时自动从 `domains` 提取） |
-| `porkbun` | API Key | Secret API Key | 主域名（`example.com`） |
-| `namesilo` | - | NameSilo API Key | 主域名（`example.com`） |
-| `vultr` | - | Vultr API Key | 主域名（`example.com`） |
+| `cloudflare`（Cloudflare） | - | API Token | Zone ID |
+| `aliyun`（阿里云） | AccessKeyId | AccessKeySecret | 主域名（`example.com`） |
+| `dnspod`（腾讯云 DNSPod） | SecretId | SecretKey | 主域名（`example.com`） |
+| `aws`（AWS Route 53） | Access Key ID | Secret Access Key | Hosted Zone ID（`Z123456`） |
+| `gd`（GoDaddy） | API Key | API Secret | 主域名（`example.com`） |
+| `dgon`（DigitalOcean） | - | API Token | 主域名（`example.com`） |
+| `gcloud`（Google Cloud DNS） | Project ID | OAuth2 Bearer Token / Service Account JSON | Managed Zone Name |
+| `namecheap`（Namecheap） | `ApiUser:ClientIp`（默认 `127.0.0.1`） | API Key | 主域名（`example.com`） |
+| `azure`（Azure DNS） | `TenantID/ClientID` | Client Secret | `SubscriptionID/ResourceGroup/ZoneName` |
+| `ovh`（OVHcloud） | Application Key（`AK`） | `ApplicationSecret:ConsumerKey`（`AS:CK`） | 主域名（`example.com` 或 `ovh-us/example.com`） |
+| `hetznercloud`（Hetzner Cloud） | - | API Token | 主域名（`example.com`） |
+| `duckdns`（DuckDNS） | - | Token | 可选（留空时自动从 `domains` 提取） |
+| `porkbun`（Porkbun） | API Key | Secret API Key | 主域名（`example.com`） |
+| `namesilo`（NameSilo） | - | API Key | 主域名（`example.com`） |
+| `vultr`（Vultr） | - | API Key | 主域名（`example.com`） |
 

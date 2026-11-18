@@ -1,17 +1,33 @@
 configuration:
   dns_provider:
     name: DNS Provider
-    description: DNS provider used for ACME DNS-01 challenge verification.
+    description: DNS provider used for ACME DNS-01 challenge verification
   dns_id:
     name: DNS API ID
-    description: API ID or Key ID required by your DNS provider (leave empty if not applicable).
+    description: API ID or Key ID required by your DNS provider (leave empty if not applicable)
   dns_secret:
     name: DNS API Secret
-    description: API Secret or Token required by your DNS provider.
+    description: API Secret or Token required by your DNS provider
   check_interval:
     name: Check Interval (Hours)
-    description: Certificate expiration check and renewal interval in hours (default 24, range 1-720).
+    description: Certificate expiration check and renewal interval in hours (range 1-720)
   certificates:
     name: Certificates
-    description: List of certificate configurations to issue and renew (enabled, domains, dns_zone, certfile, keyfile).
+    description: List of certificate configurations to issue and renew
+    fields:
+      enabled:
+        name: Enabled
+        description: Whether to enable this certificate entry
+      domains:
+        name: Domains
+        description: Comma-separated domain list, including wildcard domains (e.g. example.com,*.example.com)
+      dns_zone:
+        name: DNS Zone
+        description: Target DNS zone or root domain for your DNS provider
+      certfile:
+        name: Certificate File
+        description: Certificate chain output filename or path; relative paths are placed under /ssl/
+      keyfile:
+        name: Private Key File
+        description: Private key output filename or path; relative paths are placed under /ssl/
 
