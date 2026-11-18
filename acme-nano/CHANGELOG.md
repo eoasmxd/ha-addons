@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3
+
+- Optimized log output format.
+
 ## 1.0.2
 
 - Added support for 12 additional DNS providers (`aws`, `gd`, `dgon`, `gcloud`, `namecheap`, `azure`, `ovh`, `hetznercloud`, `duckdns`, `porkbun`, `namesilo`, `vultr`).

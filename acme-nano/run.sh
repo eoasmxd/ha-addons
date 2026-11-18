@@ -14,7 +14,7 @@ case "$DNS_PROVIDER" in
         ACME_BIN="/usr/local/bin/acme-${DNS_PROVIDER}"
         ;;
     *)
-        echo "[ERROR] Unsupported dns_provider: $DNS_PROVIDER"
+        echo "$(date '+%Y-%m-%d %H:%M:%S') [ERROR] Unsupported dns_provider: $DNS_PROVIDER"
         exit 1
         ;;
 esac
@@ -26,7 +26,7 @@ mkdir -p /ssl /data
 
 while true; do
     CERT_COUNT=$(jq '.certificates // [] | length' /data/options.json)
-    echo "[INFO] Starting Let's Encrypt certificate check (${CERT_COUNT} configured, provider: ${DNS_PROVIDER})..."
+    echo "$(date '+%Y-%m-%d %H:%M:%S') [INFO] Starting Let's Encrypt certificate check (${CERT_COUNT} configured, provider: ${DNS_PROVIDER})..."
 
     for (( i=0; i<$CERT_COUNT; i++ )); do
         ENABLED=$(jq -r ".certificates[$i].enabled" /data/options.json)
@@ -54,16 +54,16 @@ while true; do
         mkdir -p "$(dirname "$CERT_PATH")" "$(dirname "$KEY_PATH")"
 
         export DNS_ZONE
-        echo "[INFO] Processing certificate for domains: ${DOMAINS} -> ${CERT_PATH}"
+        echo "$(date '+%Y-%m-%d %H:%M:%S') [INFO] Processing certificate for domains: ${DOMAINS} -> ${CERT_PATH}"
         "$ACME_BIN" \
             -ca letsencrypt \
             -account /data/account.key \
             -d "$DOMAINS" \
             -cert "$CERT_PATH" \
-            -key "$KEY_PATH" || echo "[ERROR] Failed to process certificate for domains: ${DOMAINS}"
+            -key "$KEY_PATH" || echo "$(date '+%Y-%m-%d %H:%M:%S') [ERROR] Failed to process certificate for domains: ${DOMAINS}"
     done
 
-    echo "[INFO] Certificate check finished. Sleeping for ${CHECK_INTERVAL} hour(s)..."
+    echo "$(date '+%Y-%m-%d %H:%M:%S') [INFO] Certificate check finished. Sleeping for ${CHECK_INTERVAL} hour(s)..."
     sleep "$((CHECK_INTERVAL * 3600))"
 done
 

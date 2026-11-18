@@ -26,20 +26,20 @@ A zero-dependency, auditable Let's Encrypt DNS-01 SSL certificate client for Hom
 
 ### DNS Provider Reference
 
-| `dns_provider` | `dns_id` | `dns_secret` | `dns_zone` |
+| `dns_provider` (Provider) | `dns_id` | `dns_secret` | `dns_zone` |
 | :--- | :--- | :--- | :--- |
-| `cloudflare` | - | Cloudflare API Token | Zone ID |
-| `aliyun` | AccessKeyId | AccessKeySecret | Root domain (`example.com`) |
-| `dnspod` | SecretId | SecretKey | Root domain (`example.com`) |
-| `aws` | AWS Access Key ID | AWS Secret Access Key | Hosted Zone ID (`Z123456`) |
-| `gd` | API Key | API Secret | Root domain (`example.com`) |
-| `dgon` | - | DigitalOcean API Token | Root domain (`example.com`) |
-| `gcloud` | GCP Project ID | OAuth2 Bearer Token / Service Account JSON | Managed Zone Name |
-| `namecheap` | `ApiUser:ClientIp` (default `127.0.0.1`) | Namecheap API Key | Root domain (`example.com`) |
-| `azure` | `TenantID/ClientID` | Client Secret | `SubscriptionID/ResourceGroup/ZoneName` |
-| `ovh` | Application Key (`AK`) | `ApplicationSecret:ConsumerKey` (`AS:CK`) | Domain (`example.com` or `ovh-us/example.com`) |
-| `hetznercloud` | - | Hetzner Cloud API Token | Root domain (`example.com`) |
-| `duckdns` | - | DuckDNS Token | Optional (leave empty to auto-extract from `domains`) |
-| `porkbun` | API Key | Secret API Key | Root domain (`example.com`) |
-| `namesilo` | - | NameSilo API Key | Root domain (`example.com`) |
-| `vultr` | - | Vultr API Key | Root domain (`example.com`) |
+| `cloudflare` (Cloudflare) | - | API Token | Zone ID |
+| `aliyun` (Alibaba Cloud) | AccessKeyId | AccessKeySecret | Root domain (`example.com`) |
+| `dnspod` (Tencent Cloud DNSPod) | SecretId | SecretKey | Root domain (`example.com`) |
+| `aws` (AWS Route 53) | Access Key ID | Secret Access Key | Hosted Zone ID (`Z123456`) |
+| `gd` (GoDaddy) | API Key | API Secret | Root domain (`example.com`) |
+| `dgon` (DigitalOcean) | - | API Token | Root domain (`example.com`) |
+| `gcloud` (Google Cloud DNS) | Project ID | OAuth2 Bearer Token / Service Account JSON | Managed Zone Name |
+| `namecheap` (Namecheap) | `ApiUser:ClientIp` (default `127.0.0.1`) | API Key | Root domain (`example.com`) |
+| `azure` (Azure DNS) | `TenantID/ClientID` | Client Secret | `SubscriptionID/ResourceGroup/ZoneName` |
+| `ovh` (OVHcloud) | Application Key (`AK`) | `ApplicationSecret:ConsumerKey` (`AS:CK`) | Domain (`example.com` or `ovh-us/example.com`) |
+| `hetznercloud` (Hetzner Cloud) | - | API Token | Root domain (`example.com`) |
+| `duckdns` (DuckDNS) | - | Token | Optional (leave empty to auto-extract from `domains`) |
+| `porkbun` (Porkbun) | API Key | Secret API Key | Root domain (`example.com`) |
+| `namesilo` (NameSilo) | - | API Key | Root domain (`example.com`) |
+| `vultr` (Vultr) | - | API Key | Root domain (`example.com`) |
