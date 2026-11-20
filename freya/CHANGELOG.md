@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6
+
+- Hardened Model Context Protocol (MCP) OAuth discovery and client authentication.
+
 ## 1.0.5
 
 - Decoupled the Home Assistant custom integration from the app. The official integration is now hosted on HACS, with version management and lifecycle handled independently.
