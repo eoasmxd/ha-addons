@@ -2,7 +2,7 @@ name: "Freya AI Agent (Edge)"
 description: "Lightweight AI agent system (Edge Channel) with Home Assistant entity state awareness and device control / 支持实体状态感知与设备控制的轻量级智能体系统（先锋尝鲜版）"
 url: "https://github.com/eoasmxd/freya"
 image: "ghcr.io/eoasmxd/freya-ha-addon-{arch}"
-version: "1.0.6-edge.1"
+version: "1.0.6-edge.2"
 slug: "freya_edge"
 stage: experimental
 init: false
