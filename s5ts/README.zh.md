@@ -1,4 +1,4 @@
-# S5Tunnel Server · 安全访问内网的加密代理隧道服务端
+# S5Tunnel Server
 
 [![Home Assistant Version](https://img.shields.io/badge/Home%20Assistant-2026.2.0%2B-blue.svg)](https://www.home-assistant.io/)
 

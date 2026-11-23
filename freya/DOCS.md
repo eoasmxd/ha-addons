@@ -1,4 +1,4 @@
-# Freya Documentation · 使用文档
+# Freya Documentation
 
 > 📖 **中文文档**: [DOCS.zh.md on GitHub](https://github.com/eoasmxd/ha-addons/blob/main/freya/DOCS.zh.md)
 

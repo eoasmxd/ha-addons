@@ -1,4 +1,4 @@
-# ACME Nano Documentation · 使用文档
+# ACME Nano Documentation
 
 > 📖 **中文文档**: [DOCS.zh.md on GitHub](https://github.com/eoasmxd/ha-addons/blob/main/acme-nano/DOCS.zh.md)
 
