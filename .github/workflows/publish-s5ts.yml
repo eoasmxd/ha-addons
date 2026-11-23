@@ -2,11 +2,6 @@ name: Publish S5TS Add-on
 
 on:
   workflow_dispatch:
-    inputs:
-      publish:
-        description: 'Build & Publish S5TS Add-on'
-        type: boolean
-        default: true
 
 jobs:
   publish-s5ts:
@@ -30,7 +25,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and publish S5TS
-        if: inputs.publish == true
         uses: home-assistant/builder@master
         with:
           args: |
