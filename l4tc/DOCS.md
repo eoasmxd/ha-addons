@@ -1,4 +1,4 @@
-# L4Tunnel Client Documentation · 使用文档
+# L4Tunnel Client Documentation
 
 > 📖 **中文文档**: [DOCS.zh.md on GitHub](https://github.com/eoasmxd/ha-addons/blob/main/l4tc/DOCS.zh.md)
 

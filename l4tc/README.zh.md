@@ -1,4 +1,4 @@
-# L4Tunnel Client · 四层内网穿透客户端
+# L4Tunnel Client
 
 [![Home Assistant Version](https://img.shields.io/badge/Home%20Assistant-2026.2.0%2B-blue.svg)](https://www.home-assistant.io/)
 

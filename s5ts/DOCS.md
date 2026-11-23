@@ -1,4 +1,4 @@
-# S5Tunnel Server Documentation · 使用文档
+# S5Tunnel Server Documentation
 
 > 📖 **中文文档**: [DOCS.zh.md on GitHub](https://github.com/eoasmxd/ha-addons/blob/main/s5ts/DOCS.zh.md)
 
