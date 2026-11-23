@@ -1,0 +1,17 @@
+configuration:
+  bind_addr:
+    name: Bind Address
+    description: Network interface IP address to listen on (default 0.0.0.0)
+  bind_port:
+    name: Bind Port
+    description: Listening port for incoming S5Tunnel Client connections (default 3017)
+  token:
+    name: Authentication Token
+    description: Shared authentication token required for clients (must match S5Tunnel Client; change the default before public exposure)
+  tls_cert_file:
+    name: TLS Certificate File
+    description: Optional TLS certificate path (relative paths resolve under /ssl/; leave empty along with TLS Key File to auto-generate a self-signed certificate)
+  tls_key_file:
+    name: TLS Private Key File
+    description: Optional TLS private key path (relative paths resolve under /ssl/; must be set together with TLS Certificate File)
+
