@@ -2,11 +2,6 @@ name: Publish ACME Nano Add-on
 
 on:
   workflow_dispatch:
-    inputs:
-      publish:
-        description: 'Build & Publish ACME Nano Add-on'
-        type: boolean
-        default: true
 
 jobs:
   publish-acme-nano:
@@ -30,7 +25,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and publish ACME Nano
-        if: inputs.publish == true
         uses: home-assistant/builder@master
         with:
           args: |

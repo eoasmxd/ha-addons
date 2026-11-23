@@ -1,0 +1,31 @@
+name: "S5Tunnel Server"
+description: "Encrypted proxy tunnel server for private network access / 安全访问内网的加密代理隧道服务端"
+url: "https://github.com/eoasmxd/s5tunnel"
+image: "ghcr.io/eoasmxd/s5ts-ha-addon-{arch}"
+version: "1.0.1"
+slug: "s5ts"
+init: false
+arch:
+  - aarch64
+  - amd64
+startup: services
+boot: auto
+host_network: true
+
+map:
+  - ssl:ro
+
+options:
+  bind_addr: "0.0.0.0"
+  bind_port: 3017
+  token: "12345678"
+  tls_cert_file: ""
+  tls_key_file: ""
+
+schema:
+  bind_addr: str
+  bind_port: port
+  token: password
+  tls_cert_file: str?
+  tls_key_file: str?
+

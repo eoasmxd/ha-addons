@@ -1,0 +1,17 @@
+configuration:
+  bind_addr:
+    name: 监听地址
+    description: 服务端监听的网卡 IP 地址（默认 0.0.0.0）
+  bind_port:
+    name: 监听端口
+    description: 接收 S5Tunnel Client 连接的服务端口（默认 3017）
+  token:
+    name: 认证令牌
+    description: 客户端接入所需的共享认证令牌（需与客户端配置保持一致；对外暴露前请务必修改默认值）
+  tls_cert_file:
+    name: TLS 证书路径
+    description: 可选自定义 TLS 证书路径（填写相对路径时自动从 /ssl/ 目录读取；与私钥路径同时留空则自动生成内存自签名证书）
+  tls_key_file:
+    name: TLS 私钥路径
+    description: 可选自定义 TLS 私钥路径（填写相对路径时自动从 /ssl/ 目录读取；需与证书路径同时填写或同时留空）
+
